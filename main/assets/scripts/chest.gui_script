@@ -1,0 +1,18 @@
+math.randomseed(os.time())
+local function appereance_animation(self)
+	self.x,self.y = window.get_size()
+	gui.set(my_node, 'position.x', self.x + 100)
+	gui.animate(my_node, 'position.x', self.x / 2 - 100, gui.EASING_LINEAR, 0.7)
+	timer.delay(0.7, false, function() 
+		gui.animate(gui.get_node('name'), 'color.w', 1, gui.EASING_LINEAR, 0.4)
+	end)
+end
+
+
+
+function init(self)
+	gui.set(gui.get_node('name'),'color.w',0)
+	msg.post('.','acquire_input_focus' )
+	my_node = gui.get_node("chest")
+	appereance_animation(self)
+end

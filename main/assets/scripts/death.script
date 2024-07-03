@@ -1,0 +1,5 @@
+function on_message(self, message_id, message, sender)
+	if message_id == hash('death') then
+		go.delete()
+	end
+end

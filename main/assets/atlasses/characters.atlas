@@ -26,6 +26,10 @@ images {
   image: "/main/assets/sprites/Zombie.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
+images {
+  image: "/main/assets/sprites/slime.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
 margin: 0
 extrude_borders: 3
 inner_padding: 0

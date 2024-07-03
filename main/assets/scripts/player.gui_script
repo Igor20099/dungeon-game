@@ -1,0 +1,164 @@
+local energy_scale = nil
+local energy_count = nil
+local energy_scale_damage = nil
+math.randomseed(os.time())
+
+--Инициализация монет в начале игры
+local function set_coins(self,coins)
+	self.coins = coins
+	gui.set_text(gui.get_node('coins_count'), coins)
+end
+
+--Добавление монет при уничтожении противника
+local function add_coins(self,coins)
+	local temp_current_coins = self.coins
+	self.coins = self.coins + coins
+	self.add_coins = timer.delay(0.009, true, function() 
+		if self.coins > temp_current_coins then
+			temp_current_coins = temp_current_coins + 1
+			gui.set_text(gui.get_node('coins_count'), temp_current_coins)
+		else
+			timer.cancel(self.add_coins)
+		end
+	end)
+end
+
+--Инициализация начального здоровья
+local function set_health(self,health)
+	self.max_health = health
+	self.health = health
+	gui.set_text(gui.get_node('health_count'), self.health..'/'..self.max_health)
+end
+
+--Инициализация начального урона
+local function set_damage(self,damage)
+	self.damage = damage
+	gui.set_text(gui.get_node('damage_count'), self.damage)
+end
+
+--Инициализация начальной выносливости
+local function set_energy(self,energy)
+	self.max_energy = energy
+	self.energy = energy
+	gui.set_text(gui.get_node('energy_count'), self.energy..'/'..self.max_energy)
+end
+
+local function take_energy(self,energy)
+	if energy_scale_damage == nil then
+		energy_count = self.max_energy / 10
+		energy_scale_damage =  energy_scale / energy_count
+	end 
+
+	
+	self.energy = self.energy - energy
+	if self.energy <=0 then
+		self.energy = 0
+		msg.post(self.enemy, 'not_energy')
+		msg.post('#', 'add_energy')
+		
+	end
+	
+	energy_scale = energy_scale - energy_scale_damage
+	print(energy_scale)
+	gui.set(gui.get_node('yellow_rect'), 'scale.x',energy_scale)
+	
+	gui.set_text(gui.get_node('energy_count'), self.energy..'/'..self.max_energy)
+end
+
+local function take_damage(self,enemy_damage)
+	self.health = self.health - enemy_damage
+	local pos_y = gui.get(gui.get_node('enemy_damage'), 'position.y')
+	gui.set_text(gui.get_node('enemy_damage'), '-'..enemy_damage)
+	gui.animate(gui.get_node('enemy_damage'), 'color.w', 0, gui.EASING_LINEAR, 1)
+	gui.animate(gui.get_node('enemy_damage'), 'position.y', pos_y + 5, gui.EASING_LINEAR, 1)
+	timer.delay(1.5, false, function() gui.set(gui.get_node('enemy_damage'), 'position.y', pos_y) end)
+	gui.set(gui.get_node('enemy_damage'), 'color.w', 1)
+	if self.health <= 0 then
+		self.health = 0
+	end
+	gui.set_text(gui.get_node('health_count'), self.health..'/'..self.max_health)
+end
+
+function init(self)
+	self.coins = 0
+	self.max_health = 0
+	self.health = 0
+	self.damage = 0
+	self.max_energy = 0
+	self.energy = 0
+	energy_scale = gui.get(gui.get_node('yellow_rect'), 'scale.x')
+	print(energy_scale)
+	print(energy_scale_damage)
+	self.enemy = nil
+	self.level_of_dungeon = 1
+	self.enemies_of_level = 0
+	self.current_enemies_of_level = 0
+end
+
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash('start_stats') then
+		set_coins(self, message.start_coins)
+		set_health(self, message.health)
+		set_damage(self, message.damage)
+		set_energy(self, message.energy)
+	end
+
+	if message_id == hash('init_dungeon') then
+		self.level_of_dungeon = message.level_of_dungeon
+		gui.set_text(gui.get_node('level_dungeon'), 'Уровень подземелья: '..self.level_of_dungeon)
+		self.enemies_of_level = message.enemies_in_levels
+		self.current_enemies_of_level = self.enemies_of_level
+		gui.set_text(gui.get_node('enemies_count'), 'Врагов на уровне: '..self.current_enemies_of_level..'/'..self.enemies_of_level)
+	end
+
+	if message_id == hash('send_id_enemy') then
+		self.enemy = message.id
+	end
+
+	if message_id == hash('current_enemies_count') then
+		self.current_enemies_of_level = message.current_enemies_count
+		gui.set_text(gui.get_node('enemies_count'), 'Врагов на уровне: '..self.current_enemies_of_level..'/'..self.enemies_of_level)
+	end
+
+	if message_id == hash('add_coins') then
+		add_coins(self, message.coins)
+	end
+
+	if message_id == hash('player_damage') and self.health > 0 then
+		take_damage(self, message.damage)
+		gui.set(gui.get_node('screen_damage'), 'color.w', 0.6)
+		gui.animate(gui.get_node('screen_damage'), 'color.w', 0, gui.EASING_LINEAR, 0.3)
+	end
+	if message_id == hash('minus_energy') then
+		take_energy(self, 10)
+	end
+	if message_id == hash('add_energy') then
+		self.energy_time = timer.delay(0.6, true, function() 
+			energy_scale = energy_scale + energy_scale_damage
+			print(energy_scale)
+			gui.set(gui.get_node('yellow_rect'), 'scale.x',energy_scale)
+
+			gui.set_text(gui.get_node('energy_count'), self.energy..'/'..self.max_energy)
+			if self.energy < self.max_energy then
+				self.energy = self.energy + 10
+			end
+			
+			gui.set_text(gui.get_node('energy_count'), self.energy..'/'..self.max_energy) 
+			if self.energy >= self.max_energy then
+				self.energy = self.max_energy
+				timer.cancel(self.energy_time)
+				
+				timer.delay(0.2, false, function() 
+					if self.enemy then
+						msg.post(self.enemy, 'energy_full')
+					end
+
+					
+				end)
+				
+			end   
+		end)
+		
+	end
+end
