@@ -1,37 +1,37 @@
 images {
-  image: "/main/assets/sprites/coin.png"
+  image: "/main/assets/sprites/items/coin.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/main/assets/sprites/heart.png"
+  image: "/main/assets/sprites/items/heart.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/main/assets/sprites/potion.png"
+  image: "/main/assets/sprites/items/potion.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/main/assets/sprites/chest.png"
+  image: "/main/assets/sprites/chest/chest.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/main/assets/sprites/balck_rect.png"
+  image: "/main/assets/sprites/items/balck_rect.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/main/assets/sprites/blue_rect.png"
+  image: "/main/assets/sprites/items/blue_rect.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/main/assets/sprites/yellow_rect.png"
+  image: "/main/assets/sprites/items/yellow_rect.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/main/assets/sprites/Weather-Storm-icon.png"
+  image: "/main/assets/sprites/items/Weather-Storm-icon.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/main/assets/sprites/red_rect.png"
+  image: "/main/assets/sprites/items/red_rect.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 margin: 0

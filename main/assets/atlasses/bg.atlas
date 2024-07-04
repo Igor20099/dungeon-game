@@ -1,5 +1,5 @@
 images {
-  image: "/main/assets/sprites/bg.png"
+  image: "/main/assets/sprites/bg/bg.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 margin: 0

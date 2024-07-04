@@ -1,33 +1,41 @@
 images {
-  image: "/main/assets/sprites/Golem.png"
+  image: "/main/assets/sprites/characters/Golem.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/main/assets/sprites/Orc.png"
+  image: "/main/assets/sprites/characters/Orc.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/main/assets/sprites/Robber.png"
+  image: "/main/assets/sprites/characters/Robber.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/main/assets/sprites/Skeleton.png"
+  image: "/main/assets/sprites/characters/Skeleton.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/main/assets/sprites/Vampire.png"
+  image: "/main/assets/sprites/characters/Vampire.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/main/assets/sprites/Wolf.png"
+  image: "/main/assets/sprites/characters/Wolf.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/main/assets/sprites/Zombie.png"
+  image: "/main/assets/sprites/characters/Zombie.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
-  image: "/main/assets/sprites/slime.png"
+  image: "/main/assets/sprites/characters/slime.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/main/assets/sprites/characters/dragon.png"
+  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
+}
+images {
+  image: "/main/assets/sprites/characters/snake.png"
   sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 margin: 0

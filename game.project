@@ -1,5 +1,5 @@
 [bootstrap]
-main_collection = /main/main.collectionc
+main_collection = /main/scene_manager.collectionc
 
 [script]
 shared_state = 1
@@ -16,7 +16,7 @@ input_method = HiddenInputField
 title = Dephts of Dungeon
 
 [html5]
-scale_mode = downscale_fit
+scale_mode = stretch
 
 [graphics]
 default_texture_min_filter = nearest

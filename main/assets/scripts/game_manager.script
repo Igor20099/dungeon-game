@@ -8,6 +8,8 @@ local SKELETON_FACTORY = '#skeleton_factory'
 local ROBBER_FACTORY = '#robber_factory'
 local ORC_FACTORY = '#orc_factory'
 local GOLEM_FACTORY = '#golem_factory'
+local SNAKE_FACTORY = '#snake_factory'
+local DRAGON_FACTORY = '#dragon_factory'
 local CHEST_FACTORY = '#chest_factory'
 
 local function create_random_enemy(self)
@@ -19,8 +21,10 @@ end
 
 
 function init(self)
+	msg.post("@render:", "use_fixed_fit_projection", {zoom = 4})
+	msg.post('#end_game', 'disable')
 	self.id =nil
-	self.enemies = {ZOMBIE_FACTORY,WOLF_FACTORY,SLIME_FACTORY,VAMPIRE_FACTORY,SKELETON_FACTORY,ROBBER_FACTORY,ORC_FACTORY,GOLEM_FACTORY}
+	self.enemies = {ZOMBIE_FACTORY,WOLF_FACTORY,SLIME_FACTORY,VAMPIRE_FACTORY,SKELETON_FACTORY,ROBBER_FACTORY,ORC_FACTORY,GOLEM_FACTORY,SNAKE_FACTORY,DRAGON_FACTORY}
 	self.level_of_dungeon = 1
 	self.enemies_in_levels = math.random(3,5)
 	self.curent_enemies_of_level = self.enemies_in_levels
@@ -31,7 +35,7 @@ end
 
 
 function on_message(self, message_id, message, sender)
-	if message_id == hash('create_new_enemy') and self.curent_enemies_of_level ~= 1  then
+	if message_id == hash('create_new_enemy') and self.curent_enemies_of_level > 1  then
 		self.curent_enemies_of_level = self.curent_enemies_of_level - 1
 		msg.post('/player#player', 'current_enemies_count', {current_enemies_count = self.curent_enemies_of_level})
 		create_random_enemy(self)
@@ -39,6 +43,19 @@ function on_message(self, message_id, message, sender)
 		self.curent_enemies_of_level = self.curent_enemies_of_level - 1
 		msg.post('/player#player', 'current_enemies_count', {current_enemies_count = self.curent_enemies_of_level})
 		factory.create(CHEST_FACTORY)
+	end
+
+	if message_id == hash('next_level') then
+		self.level_of_dungeon = self.level_of_dungeon + 1
+		self.enemies_in_levels = math.random(3,5)
+		self.curent_enemies_of_level = self.enemies_in_levels
+		msg.post('/player#player', 'init_dungeon',{level_of_dungeon = self.level_of_dungeon,enemies_in_levels = self.enemies_in_levels})
+		create_random_enemy(self)
+	end
+
+	if message_id == hash('end_game') then
+		msg.post('#end_game', 'enable')
+		msg.post(self.id, 'disable')
 	end
 end
 
