@@ -1,4 +1,4 @@
-script: "/main/assets/scripts/end_game.gui_script"
+script: "/main/assets/scripts/end_game/end_game.gui_script"
 fonts {
   name: "number"
   font: "/main/assets/fonts/number.font"

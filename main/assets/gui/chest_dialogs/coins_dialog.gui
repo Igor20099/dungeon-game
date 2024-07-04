@@ -1,4 +1,4 @@
-script: "/main/assets/scripts/coins_dialog.gui_script"
+script: "/main/assets/scripts/chest/coins_dialog.gui_script"
 fonts {
   name: "number"
   font: "/main/assets/fonts/number.font"

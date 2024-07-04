@@ -15,7 +15,7 @@ components {
 }
 components {
   id: "death"
-  component: "/main/assets/scripts/death.script"
+  component: "/main/assets/scripts/components/death.script"
   position {
     x: 0.0
     y: 0.0
@@ -30,7 +30,7 @@ components {
 }
 components {
   id: "enemy_stats"
-  component: "/main/assets/scripts/enemy_stats.script"
+  component: "/main/assets/scripts/enemy/enemy_stats.script"
   position {
     x: 0.0
     y: 0.0

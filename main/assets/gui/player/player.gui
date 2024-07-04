@@ -1,4 +1,4 @@
-script: "/main/assets/scripts/player.gui_script"
+script: "/main/assets/scripts/player/player.gui_script"
 fonts {
   name: "main"
   font: "/main/assets/fonts/main.font"
