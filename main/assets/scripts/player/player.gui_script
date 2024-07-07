@@ -2,6 +2,10 @@ local energy_scale = nil
 local energy_count = nil
 local energy_scale_damage = nil
 local max_energy_scale = nil
+
+local exp_scale = nil
+local max_exp_scale = nil
+local exp_count = 0
 math.randomseed(os.time())
 
 --Инициализация монет в начале игры
@@ -24,11 +28,22 @@ local function add_coins(self,coins)
 	end)
 end
 
+
+
 --Инициализация начального здоровья
 local function set_health(self,health)
 	self.max_health = health
 	self.health = health
 	gui.set_text(gui.get_node('health_count'), self.health..'/'..self.max_health)
+end
+
+local function add_level(self)
+	self.level = self.level + 1
+	gui.set_text(gui.get_node('player_level'), 'Ур. '..self.level)
+end
+
+local function add_exp(self,exp)
+	self.exp = self.exp + exp
 end
 
 --Инициализация начального урона
@@ -129,8 +144,21 @@ local function take_damage(self,enemy_damage)
 	gui.set_text(gui.get_node('health_count'), self.health..'/'..self.max_health)
 end
 
+local function set_exp_scale()
+	exp_scale = 0
+	gui.set(gui.get_node('blue_rect'), 'scale.x', exp_scale)
+end
+
+local function add_exp_scale(self,exp)
+	exp_count = max_energy_scale / (self.max_exp / exp)
+	exp_scale = exp_scale + exp_count
+	gui.set(gui.get_node('blue_rect'), 'scale.x', exp_scale)
+
+end
+
 function init(self)
 	msg.post('.', 'acquire_input_focus')
+	msg.post('#level_up', 'disable')
 	self.coins = 0
 	self.max_health = 0
 	self.health = 0
@@ -138,9 +166,12 @@ function init(self)
 	self.max_energy = 0
 	self.energy = 0
 	self.potions = 3
+	self.level = 1
+	self.exp = 0
+	self.max_exp = 500
 	gui.set_text(gui.get_node('potion_count'), self.potions)
 	max_energy_scale = gui.get(gui.get_node('black_rect'), 'scale.x')
-	energy_scale = gui.get(gui.get_node('yellow_rect'), 'scale.x')
+	energy_scale = gui.get(gui.get_node('black_rect'), 'scale.x')
 	print(energy_scale)
 	print(energy_scale_damage)
 	self.enemy = nil
@@ -148,6 +179,9 @@ function init(self)
 	self.enemies_of_level = 0
 	self.current_enemies_of_level = 0
 	self.damage_types = {'miss','damage','crit_damage'}
+	max_exp_scale = gui.get(gui.get_node('black_rect1'), 'scale.x')
+	set_exp_scale()
+	
 end
 
 
@@ -175,6 +209,25 @@ function on_message(self, message_id, message, sender)
 		add_potion(self)
 	end
 
+	if message_id == hash('add_exp') then
+		print(message.exp)
+		add_exp(self, message.exp)
+		add_exp_scale(self,message.exp)
+		if self.exp >= self.max_exp then
+			add_level(self)
+			self.health = self.max_health
+			msg.post('#level_up', 'enable')
+			timer.delay(0.4, false, function() 
+				msg.post(self.enemy, 'hide')
+			end)
+			self.exp = self.exp - self.max_exp
+			exp_scale = 0
+			add_exp_scale(self,	self.exp)
+			self.max_exp= self.max_exp + 500
+		end
+
+	end
+
 	if message_id == hash('current_enemies_count') then
 		self.current_enemies_of_level = message.current_enemies_count
 		gui.set_text(gui.get_node('enemies_count'), 'Врагов на уровне: '..self.current_enemies_of_level..'/'..self.enemies_of_level)
@@ -191,6 +244,29 @@ function on_message(self, message_id, message, sender)
 	if message_id == hash('minus_energy') then
 		take_energy(self, 10)
 	end
+
+	if message_id == hash('add_max_health') then
+		self.max_health = self.max_health + 10
+		self.health = self.max_health
+		gui.set_text(gui.get_node('health_count'), self.health..'/'..self.max_health)
+		msg.post(self.enemy, 'show')
+	end
+
+	if message_id == hash('add_max_damage') then
+		self.damage = self.damage + 5
+		gui.set_text(gui.get_node('damage_count'), self.damage)
+		msg.post(self.enemy, 'show')
+	end
+
+	if message_id == hash('add_max_energy') then
+		self.max_energy = self.max_energy + 10
+		gui.set_text(gui.get_node('energy_count'), self.energy..'/'..self.max_energy)
+		msg.post(self.enemy, 'show')
+		energy_count = self.max_energy / 10
+		energy_scale_damage =  max_energy_scale / energy_count
+
+	end
+	
 	if message_id == hash('add_energy') then
 		self.energy_time = timer.delay(0.6, true, function() 
 			if energy_scale >= max_energy_scale then

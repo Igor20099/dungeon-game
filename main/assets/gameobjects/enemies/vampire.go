@@ -62,6 +62,11 @@ components {
     value: "100.0"
     type: PROPERTY_TYPE_NUMBER
   }
+  properties {
+    id: "exp"
+    value: "150.0"
+    type: PROPERTY_TYPE_NUMBER
+  }
 }
 embedded_components {
   id: "name"

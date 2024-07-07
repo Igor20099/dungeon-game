@@ -2,9 +2,10 @@ go.property('health', 0)
 go.property('damage', 0)
 go.property('delay_attack', 0)
 go.property('coins', 0)
+go.property('exp', 0)
 
 
 
 function init(self)
-	msg.post('#enemy', 'stats',{name= label.get_text('#name'),health = self.health,damage = self.damage, delay_attack = self.delay_attack,coins = self.coins})
+	msg.post('#enemy', 'stats',{name= label.get_text('#name'),health = self.health,damage = self.damage, delay_attack = self.delay_attack,coins = self.coins, exp = self.exp})
 end

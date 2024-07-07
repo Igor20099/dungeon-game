@@ -21,7 +21,7 @@ end
 
 
 function init(self)
-	msg.post("@render:", "use_fixed_fit_projection", {zoom = 4})
+	msg.post("@render:", "use_fixed_fit_projection")
 	msg.post('#end_game', 'disable')
 	self.id =nil
 	self.enemies = {ZOMBIE_FACTORY,WOLF_FACTORY,SLIME_FACTORY,VAMPIRE_FACTORY,SKELETON_FACTORY,ROBBER_FACTORY,ORC_FACTORY,GOLEM_FACTORY,SNAKE_FACTORY,DRAGON_FACTORY}

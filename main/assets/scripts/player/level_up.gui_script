@@ -1,0 +1,36 @@
+function init(self)
+	-- Add initialization code here
+	-- Learn more: https://defold.com/manuals/script/
+	-- Remove this function if not needed
+end
+
+function final(self)
+	-- Add finalization code here
+	-- Learn more: https://defold.com/manuals/script/
+	-- Remove this function if not needed
+end
+
+function update(self, dt)
+	-- Add update code here
+	-- Learn more: https://defold.com/manuals/script/
+	-- Remove this function if not needed
+end
+
+function on_message(self, message_id, message, sender)
+	-- Add message-handling code here
+	-- Learn more: https://defold.com/manuals/message-passing/
+	-- Remove this function if not needed
+end
+
+function on_input(self, action_id, action)
+	if gui.pick_node(gui.get_node('add_health'), action.x, action.y) and action.released and action_id == hash("touch") then
+		msg.post('#player', 'add_max_health')
+		msg.post('#', 'disable')
+	elseif gui.pick_node(gui.get_node('add_damage'), action.x, action.y) and action.released and action_id == hash("touch") then
+		msg.post('#player', 'add_max_damage')
+		msg.post('#', 'disable')
+	elseif gui.pick_node(gui.get_node('add_energy'), action.x, action.y) and action.released and action_id == hash("touch") then
+		msg.post('#player', 'add_max_energy')
+		msg.post('#', 'disable')
+	end
+end

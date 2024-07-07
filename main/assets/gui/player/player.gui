@@ -7,6 +7,10 @@ fonts {
   name: "number"
   font: "/main/assets/fonts/number.font"
 }
+fonts {
+  name: "potion_font"
+  font: "/main/assets/fonts/potion_font.font"
+}
 textures {
   name: "items"
   texture: "/main/assets/atlasses/items.atlas"
@@ -23,8 +27,8 @@ background_color {
 }
 nodes {
   position {
-    x: 494.0
-    y: 604.0
+    x: 211.0
+    y: 895.0
     z: 0.0
     w: 1.0
   }
@@ -54,7 +58,7 @@ nodes {
   }
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
-  text: "\320\243\321\200\320\276\320\262\320\265\320\275\321\214 \320\277\320\276\320\264\320\267\320\265\320\274\320\265\320\273\321\214\321\217: 1"
+  text: "\320\243\321\200\320\276\320\262\320\265\320\275\321\214 \320\277\320\276\320\264\320\267\320\265\320\274\320\265\320\273\321\214\321\217: 100"
   font: "main"
   id: "level_dungeon"
   xanchor: XANCHOR_NONE
@@ -89,8 +93,8 @@ nodes {
 }
 nodes {
   position {
-    x: 296.0
-    y: 521.0
+    x: 34.0
+    y: 801.0
     z: 0.0
     w: 1.0
   }
@@ -147,8 +151,8 @@ nodes {
 }
 nodes {
   position {
-    x: 327.0
-    y: 517.0
+    x: 10.333334
+    y: -1.333333
     z: 0.0
     w: 1.0
   }
@@ -159,8 +163,8 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 1.0
-    y: 1.0
+    x: 0.4
+    y: 0.4
     z: 1.0
     w: 1.0
   }
@@ -198,6 +202,7 @@ nodes {
   }
   adjust_mode: ADJUST_MODE_FIT
   line_break: false
+  parent: "coin"
   layer: ""
   inherit_alpha: true
   alpha: 1.0
@@ -213,8 +218,8 @@ nodes {
 }
 nodes {
   position {
-    x: 374.0
-    y: 472.0
+    x: 84.0
+    y: 741.0
     z: 0.0
     w: 1.0
   }
@@ -246,7 +251,7 @@ nodes {
   blend_mode: BLEND_MODE_ALPHA
   texture: "items/heart"
   id: "heart"
-  xanchor: XANCHOR_NONE
+  xanchor: XANCHOR_LEFT
   yanchor: YANCHOR_TOP
   pivot: PIVOT_CENTER
   adjust_mode: ADJUST_MODE_FIT
@@ -271,8 +276,8 @@ nodes {
 }
 nodes {
   position {
-    x: 404.0
-    y: 473.0
+    x: 10.0
+    y: 0.0
     z: 0.0
     w: 1.0
   }
@@ -283,8 +288,8 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 1.0
-    y: 1.0
+    x: 0.3
+    y: 0.3
     z: 1.0
     w: 1.0
   }
@@ -322,6 +327,7 @@ nodes {
   }
   adjust_mode: ADJUST_MODE_FIT
   line_break: false
+  parent: "heart"
   layer: ""
   inherit_alpha: true
   alpha: 1.0
@@ -337,8 +343,76 @@ nodes {
 }
 nodes {
   position {
-    x: 546.0
-    y: 472.0
+    x: 12.0
+    y: 8.333333
+    z: 0.0
+    w: 1.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale {
+    x: 0.3
+    y: 0.3
+    z: 1.0
+    w: 1.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+    z: 0.0
+    w: 1.0
+  }
+  color {
+    x: 0.6
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  type: TYPE_TEXT
+  blend_mode: BLEND_MODE_ALPHA
+  text: "-5\n"
+  ""
+  font: "number"
+  id: "enemy_damage"
+  xanchor: XANCHOR_NONE
+  yanchor: YANCHOR_TOP
+  pivot: PIVOT_W
+  outline {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
+  adjust_mode: ADJUST_MODE_FIT
+  line_break: false
+  parent: "heart"
+  layer: ""
+  inherit_alpha: true
+  alpha: 0.0
+  outline_alpha: 1.0
+  shadow_alpha: 1.0
+  template_node_child: false
+  text_leading: 1.0
+  text_tracking: 0.0
+  custom_type: 0
+  enabled: true
+  visible: true
+  material: ""
+}
+nodes {
+  position {
+    x: 256.0
+    y: 741.0
     z: 0.0
     w: 1.0
   }
@@ -395,8 +469,8 @@ nodes {
 }
 nodes {
   position {
-    x: 565.0
-    y: 473.0
+    x: 200.0
+    y: -10.0
     z: 0.0
     w: 1.0
   }
@@ -407,8 +481,8 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 1.0
-    y: 1.0
+    x: 10.0
+    y: 10.0
     z: 1.0
     w: 1.0
   }
@@ -446,6 +520,7 @@ nodes {
   }
   adjust_mode: ADJUST_MODE_FIT
   line_break: false
+  parent: "sword"
   layer: ""
   inherit_alpha: true
   alpha: 1.0
@@ -461,8 +536,8 @@ nodes {
 }
 nodes {
   position {
-    x: 310.0
-    y: 431.0
+    x: 47.0
+    y: 688.0
     z: 0.0
     w: 1.0
   }
@@ -473,8 +548,8 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 10.848958
-    y: 0.710053
+    x: 8.0
+    y: 0.6
     z: 1.0
     w: 1.0
   }
@@ -519,8 +594,8 @@ nodes {
 }
 nodes {
   position {
-    x: 296.0
-    y: 432.0
+    x: 33.0
+    y: 689.0
     z: 0.0
     w: 1.0
   }
@@ -577,8 +652,8 @@ nodes {
 }
 nodes {
   position {
-    x: 310.0
-    y: 431.0
+    x: 47.0
+    y: 688.0
     z: 0.0
     w: 1.0
   }
@@ -589,8 +664,8 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 10.8
-    y: 0.628275
+    x: 8.0
+    y: 0.6
     z: 1.0
     w: 1.0
   }
@@ -635,8 +710,8 @@ nodes {
 }
 nodes {
   position {
-    x: 699.0
-    y: 429.0
+    x: 362.0
+    y: 686.0
     z: 0.0
     w: 1.0
   }
@@ -666,7 +741,8 @@ nodes {
   }
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
-  text: "60/60\n"
+  text: "120/120\n"
+  "\n"
   ""
   font: "number"
   id: "energy_count"
@@ -702,8 +778,8 @@ nodes {
 }
 nodes {
   position {
-    x: 310.0
-    y: 400.0
+    x: 39.0
+    y: 649.0
     z: 0.0
     w: 1.0
   }
@@ -760,8 +836,8 @@ nodes {
 }
 nodes {
   position {
-    x: 310.0
-    y: 400.0
+    x: 39.0
+    y: 649.0
     z: 0.0
     w: 1.0
   }
@@ -818,8 +894,8 @@ nodes {
 }
 nodes {
   position {
-    x: 434.0
-    y: 398.0
+    x: 163.0
+    y: 647.0
     z: 0.0
     w: 1.0
   }
@@ -885,8 +961,8 @@ nodes {
 }
 nodes {
   position {
-    x: 257.0
-    y: 53.0
+    x: -1.0
+    y: 59.0
     z: 0.0
     w: 1.0
   }
@@ -897,8 +973,8 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 0.15
-    y: 0.15
+    x: 0.2
+    y: 0.2
     z: 1.0
     w: 1.0
   }
@@ -943,8 +1019,8 @@ nodes {
 }
 nodes {
   position {
-    x: 321.66666
-    y: 46.0
+    x: 468.66666
+    y: -44.0
     z: 0.0
     w: 1.0
   }
@@ -955,8 +1031,8 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 1.0
-    y: 1.0
+    x: 5.0
+    y: 5.0
     z: 1.0
     w: 1.0
   }
@@ -976,10 +1052,10 @@ nodes {
   blend_mode: BLEND_MODE_ALPHA
   text: "6\n"
   ""
-  font: "number"
+  font: "potion_font"
   id: "potion_count"
-  xanchor: XANCHOR_NONE
-  yanchor: YANCHOR_BOTTOM
+  xanchor: XANCHOR_LEFT
+  yanchor: YANCHOR_NONE
   pivot: PIVOT_W
   outline {
     x: 1.0
@@ -995,6 +1071,7 @@ nodes {
   }
   adjust_mode: ADJUST_MODE_FIT
   line_break: false
+  parent: "potion"
   layer: ""
   inherit_alpha: true
   alpha: 1.0
@@ -1010,8 +1087,8 @@ nodes {
 }
 nodes {
   position {
-    x: 487.0
-    y: 327.0
+    x: 215.0
+    y: 449.0
     z: 0.0
     w: 1.0
   }
@@ -1022,8 +1099,8 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 1.0
-    y: 1.0
+    x: 2.0
+    y: 2.0
     z: 1.0
     w: 1.0
   }
@@ -1068,75 +1145,8 @@ nodes {
 }
 nodes {
   position {
-    x: 397.0
-    y: 510.0
-    z: 0.0
-    w: 1.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-    w: 1.0
-  }
-  size {
-    x: 200.0
-    y: 100.0
-    z: 0.0
-    w: 1.0
-  }
-  color {
-    x: 0.6
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  type: TYPE_TEXT
-  blend_mode: BLEND_MODE_ALPHA
-  text: "-5\n"
-  ""
-  font: "number"
-  id: "enemy_damage"
-  xanchor: XANCHOR_NONE
-  yanchor: YANCHOR_TOP
-  pivot: PIVOT_W
-  outline {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-    w: 1.0
-  }
-  shadow {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-    w: 1.0
-  }
-  adjust_mode: ADJUST_MODE_FIT
-  line_break: false
-  layer: ""
-  inherit_alpha: true
-  alpha: 0.0
-  outline_alpha: 1.0
-  shadow_alpha: 1.0
-  template_node_child: false
-  text_leading: 1.0
-  text_tracking: 0.0
-  custom_type: 0
-  enabled: true
-  visible: true
-  material: ""
-}
-nodes {
-  position {
-    x: 502.0
-    y: 565.0
+    x: 211.0
+    y: 851.0
     z: 0.0
     w: 1.0
   }
@@ -1201,8 +1211,8 @@ nodes {
 }
 nodes {
   position {
-    x: 487.0
-    y: 327.0
+    x: 215.0
+    y: 449.0
     z: 0.0
     w: 1.0
   }
@@ -1213,8 +1223,8 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 1.0
-    y: 1.0
+    x: 2.0
+    y: 2.0
     z: 1.0
     w: 1.0
   }
