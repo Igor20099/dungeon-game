@@ -24,12 +24,13 @@ function init(self)
 	msg.post("@render:", "use_fixed_fit_projection")
 	msg.post('#end_game', 'disable')
 	self.id =nil
-	self.enemies = {ZOMBIE_FACTORY,WOLF_FACTORY,SLIME_FACTORY,VAMPIRE_FACTORY,SKELETON_FACTORY,ROBBER_FACTORY,ORC_FACTORY,GOLEM_FACTORY,SNAKE_FACTORY,DRAGON_FACTORY}
+	self.enemies = {ZOMBIE_FACTORY,WOLF_FACTORY,SLIME_FACTORY,SKELETON_FACTORY,SNAKE_FACTORY}
 	self.level_of_dungeon = 1
 	self.enemies_in_levels = math.random(3,5)
 	self.curent_enemies_of_level = self.enemies_in_levels
 	msg.post('/player#player', 'init_dungeon',{level_of_dungeon = self.level_of_dungeon,enemies_in_levels = self.enemies_in_levels})
 	create_random_enemy(self)
+	self.chest_hide = false
 end
 
 
@@ -42,11 +43,46 @@ function on_message(self, message_id, message, sender)
 	elseif message_id == hash('create_new_enemy') and self.curent_enemies_of_level == 1 then
 		self.curent_enemies_of_level = self.curent_enemies_of_level - 1
 		msg.post('/player#player', 'current_enemies_count', {current_enemies_count = self.curent_enemies_of_level})
-		factory.create(CHEST_FACTORY)
+		self.chest =  factory.create(CHEST_FACTORY)
+		msg.post('/player#player', 'chest',{chest = self.chest})
+		timer.delay(0.6, false, function() if self.chest_hide == true then
+			msg.post(self.chest, 'hide')
+			self.chest_hide = false
+		else
+			msg.post(self.chest, 'show')
+			self.chest_hide = false
+		end
+	end)
+
+	end
+
+	if message_id == hash('chest_hide') then
+		if self.chest ~=nil then
+			self.chest_hide = true
+		end
+		
+	end
+
+	if message_id == hash('chest_delete') then
+self.chest = nil
 	end
 
 	if message_id == hash('next_level') then
 		self.level_of_dungeon = self.level_of_dungeon + 1
+		if self.level_of_dungeon == 5 then
+			table.insert(self.enemies,ROBBER_FACTORY)
+			table.insert(self.enemies,VAMPIRE_FACTORY)
+		end
+
+		if self.level_of_dungeon == 10 then
+			table.insert(self.enemies,ORC_FACTORY)
+			table.insert(self.enemies,GOLEM_FACTORY)
+		end
+
+		if self.level_of_dungeon == 15 then
+			table.insert(self.enemies,DRAGON_FACTORY)
+		end
+		
 		self.enemies_in_levels = math.random(3,5)
 		self.curent_enemies_of_level = self.enemies_in_levels
 		msg.post('/player#player', 'init_dungeon',{level_of_dungeon = self.level_of_dungeon,enemies_in_levels = self.enemies_in_levels})
@@ -58,16 +94,3 @@ function on_message(self, message_id, message, sender)
 		msg.post(self.id, 'disable')
 	end
 end
-
-function on_input(self, action_id, action)
-	-- Add input-handling code here. The game object this script is attached to
-	-- must have acquired input focus:
-	--
-	--    msg.post(".", "acquire_input_focus")
-	--
-	-- All mapped input bindings will be received. Mouse and touch input will
-	-- be received regardless of where on the screen it happened.
-	-- Learn more: https://defold.com/manuals/input/
-	-- Remove this function if not needed
-end
-

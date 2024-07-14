@@ -5,6 +5,7 @@ local lifebar = nil
 local lifebar_damage = nil
 local lifebar_crit_damage = nil
 local damage_message = nil
+
 math.randomseed(os.time())
 local function appereance_animation(self)
 	self.x,self.y = window.get_size()
@@ -48,6 +49,10 @@ function init(self)
 	self.player_damage = nil
 	self.delay_attack = 0
 	self.player_damage_1 = 0
+	self.buff = nil
+
+	msg.post('/player#player','is_buff')
+	self.is_poison = false
 		
 end
 
@@ -67,6 +72,11 @@ function on_message(self, message_id, message, sender)
 			msg.post('/player#player','poison', {poison_damage = 5})
 		end
 	end
+
+	if message_id == hash('buff') then
+		self.buff = message.buff
+	end
+	
 	if message_id == hash('not_energy') then
 		print('word word')
 		msg.post('.', 'release_input_focus')
@@ -96,27 +106,68 @@ function on_message(self, message_id, message, sender)
 		timer.delay(0.4, false, function() msg.post('.', 'enable')end)
 		self.player_damage = timer.delay(self.delay_attack, true, function() msg.post('/player#player', 'player_damage',{damage = 10})end)
 	end
+
+
 end
 
 function on_input(self, action_id, action)
 	local my_node = gui.get_node("character")
 	if gui.pick_node(my_node, action.x, action.y) and action.released and action_id == hash("touch") then
 		
-		local damage_type = self.damage_types[math.random(1,#self.damage_types)]
-		print(damage_type)
+	
 		timer.delay(0.04, false, function() 
 
 			msg.post('/player#player', 'minus_energy')
 		end)
-		if damage_type == 'miss' then
-			damage_message = gui.new_text_node(vmath.vector3(430 /2 + 150,400,1), 'Промах')
-			gui.animate(damage_message, 'color.w', 0, gui.EASING_LINEAR, 0.8)
-			gui.animate(damage_message, 'position.y', 430, gui.EASING_LINEAR, 0.4)
-			return
+		if self.buff == 'straight_sword' then
+			self.damage_types = {'damage','crit_damage'}
+		elseif self.buff == 'rusty_sword' then
+			self.damage_types = {'miss','damage'}
+		elseif self.buff == 'blood_sword' then		
+			self.damage_types = {'crit_damage'}
+			msg.post('/player#player', 'blood_sword_damage')
 		end
+		local damage_type = self.damage_types[math.random(1,#self.damage_types)]
+		
+			if damage_type == 'miss' then
+				damage_message = gui.new_text_node(vmath.vector3(430 /2 + 150,400,1), 'Промах')
+				gui.animate(damage_message, 'color.w', 0, gui.EASING_LINEAR, 0.8)
+				gui.animate(damage_message, 'position.y', 430, gui.EASING_LINEAR, 0.4)
+				return
+			end
+		
+		
 		damage_animation()
 		
 		if damage_type == 'damage' then
+			if self.buff == 'golden_sword' then
+				msg.post('/player#player', 'add_coins' ,{coins = self.player_damage_1})
+			end
+
+			if self.buff == 'health_sword' then
+				msg.post('/player#player', 'add_health_from_damage' ,{health = self.player_damage_1})
+			end
+
+			if self.buff == 'poison_sword' and self.is_poison == false then
+				timer.delay(2, true, function() self.health = self.health - 5 
+					damage_message = gui.new_text_node(vmath.vector3(430 /2 + 150,400,1),-5)
+					gui.set(damage_message, gui.PROP_COLOR, vmath.vector4(0,1,0,1))
+					gui.animate(damage_message, 'color.w', 0, gui.EASING_LINEAR,0.8)
+					gui.animate(damage_message, 'position.y', 430, gui.EASING_LINEAR, 0.4)
+
+					if self.health <= 0 then
+						self.health = 0
+						msg.post('.','release_input_focus' )
+						msg.post('/game_manager#game_manager', 'create_new_enemy')
+						msg.post('/player#player', 'add_coins',{coins = self.coins})
+						msg.post('/player#player', 'add_exp',{exp = self.exp})
+						gui.animate(my_node, 'color.w', 0, gui.EASING_LINEAR, 0.3)
+						timer.delay(0.5, false, function() msg.post('#death', 'death') end)
+					end
+					gui.set_text(gui.get_node('health_count'), self.health..'/'..self.max_health)end)
+					self.is_poison = true
+
+				end
 			damage_message = gui.new_text_node(vmath.vector3(430 /2 + 150,400,1), self.player_damage_1)
 			gui.animate(damage_message, 'color.w', 0, gui.EASING_LINEAR, 0.8)
 			gui.animate(damage_message, 'position.y', 430, gui.EASING_LINEAR, 0.4)
@@ -129,6 +180,34 @@ function on_input(self, action_id, action)
 			print('обычный'..lifebar_damage)
 			gui.set(gui.get_node('red_rect'), 'scale.x', lifebar)
 		elseif damage_type == 'crit_damage' then
+			if self.buff == 'golden_sword' then
+				msg.post('/player#player', 'add_coins', {coins = self.player_damage_1 * 2})
+			end
+
+			if self.buff == 'health_sword' then
+				msg.post('/player#player', 'add_health_from_damage' ,{health = self.player_damage_1 * 2})
+			end
+
+			if self.buff == 'poison_sword' and self.is_poison == false then
+				timer.delay(2, true, function() self.health = self.health - 5 
+					damage_message = gui.new_text_node(vmath.vector3(430 /2 + 150,400,1),-5)
+					gui.set(damage_message, gui.PROP_COLOR, vmath.vector4(0,1,0,1))
+					gui.animate(damage_message, 'color.w', 0, gui.EASING_LINEAR,0.8)
+					gui.animate(damage_message, 'position.y', 430, gui.EASING_LINEAR, 0.4)
+
+					if self.health <= 0 then
+						self.health = 0
+						msg.post('.','release_input_focus' )
+						msg.post('/game_manager#game_manager', 'create_new_enemy')
+						msg.post('/player#player', 'add_coins',{coins = self.coins})
+						msg.post('/player#player', 'add_exp',{exp = self.exp})
+						gui.animate(my_node, 'color.w', 0, gui.EASING_LINEAR, 0.3)
+						timer.delay(0.5, false, function() msg.post('#death', 'death') end)
+					end
+					gui.set_text(gui.get_node('health_count'), self.health..'/'..self.max_health)end)
+				self.is_poison = true
+				
+			end
 			damage_message = gui.new_text_node(vmath.vector3(430 /2 + 150,400,1), self.player_damage_1  * 2)
 			gui.set(damage_message, gui.PROP_COLOR, vmath.vector4(1,0,0,1))
 			gui.animate(damage_message, 'color.w', 0, gui.EASING_LINEAR,0.8)
