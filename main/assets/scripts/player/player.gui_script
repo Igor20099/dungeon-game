@@ -198,7 +198,8 @@ function init(self)
 	max_exp_scale = gui.get(gui.get_node('black_rect1'), 'scale.x')
 	set_exp_scale()
 	timer.delay(0.2, false, function() msg.post(self.enemy, 'player_damage', {player_damage = self.damage})end)
-	
+	gui.set_texture(gui.get_node('sword'), "swords")
+	gui.play_flipbook(gui.get_node('sword'), "sword")
 end
 
 
