@@ -43,13 +43,18 @@ components {
     w: 1.0
   }
   properties {
+    id: "type"
+    value: "dragon"
+    type: PROPERTY_TYPE_HASH
+  }
+  properties {
     id: "health"
-    value: "50.0"
+    value: "200.0"
     type: PROPERTY_TYPE_NUMBER
   }
   properties {
     id: "damage"
-    value: "10.0"
+    value: "40.0"
     type: PROPERTY_TYPE_NUMBER
   }
   properties {
@@ -59,7 +64,7 @@ components {
   }
   properties {
     id: "coins"
-    value: "50.0"
+    value: "500.0"
     type: PROPERTY_TYPE_NUMBER
   }
   properties {

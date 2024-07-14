@@ -43,23 +43,28 @@ components {
     w: 1.0
   }
   properties {
+    id: "type"
+    value: "skeleton"
+    type: PROPERTY_TYPE_HASH
+  }
+  properties {
     id: "health"
-    value: "20.0"
+    value: "50.0"
     type: PROPERTY_TYPE_NUMBER
   }
   properties {
     id: "damage"
-    value: "5.0"
+    value: "10.0"
     type: PROPERTY_TYPE_NUMBER
   }
   properties {
     id: "delay_attack"
-    value: "3.0"
+    value: "2.5"
     type: PROPERTY_TYPE_NUMBER
   }
   properties {
     id: "coins"
-    value: "50.0"
+    value: "100.0"
     type: PROPERTY_TYPE_NUMBER
   }
   properties {

@@ -43,8 +43,13 @@ components {
     w: 1.0
   }
   properties {
+    id: "type"
+    value: "vampire"
+    type: PROPERTY_TYPE_HASH
+  }
+  properties {
     id: "health"
-    value: "50.0"
+    value: "100.0"
     type: PROPERTY_TYPE_NUMBER
   }
   properties {
@@ -64,7 +69,7 @@ components {
   }
   properties {
     id: "exp"
-    value: "150.0"
+    value: "200.0"
     type: PROPERTY_TYPE_NUMBER
   }
 }

@@ -105,7 +105,7 @@ local function take_energy(self,energy)
 	gui.set_text(gui.get_node('energy_count'), self.energy..'/'..self.max_energy)
 end
 
-local function take_damage(self,enemy_damage)
+local function take_damage(self,enemy_damage,enemy_type)
 	local damage_type = self.damage_types[math.random(1,#self.damage_types)]
 	local pos_y = gui.get(gui.get_node('enemy_damage'), 'position.y')
 	if damage_type == 'miss' then
@@ -125,6 +125,13 @@ local function take_damage(self,enemy_damage)
 		gui.animate(gui.get_node('enemy_damage'), 'position.y', pos_y + 5, gui.EASING_LINEAR, 1)
 		timer.delay(1.5, false, function() gui.set(gui.get_node('enemy_damage'), 'position.y', pos_y) end)
 		gui.set(gui.get_node('enemy_damage'), 'color.w', 1)
+		if enemy_type == hash('robber') and self.coins >= 50 then
+			self.coins = self.coins - 50
+			gui.set_text(gui.get_node('coins_count'), self.coins)
+		end
+		if enemy_type == hash('vampire') then
+			msg.post(self.enemy, 'add_health',{add_health = 10})
+		end
 	elseif damage_type == 'crit_damage' then
 		gui.set_color(gui.get_node('enemy_damage'),vmath.vector4(1,0,0,0))
 		gui.set(gui.get_node('screen_damage'), 'color.w', 0.6)
@@ -135,6 +142,14 @@ local function take_damage(self,enemy_damage)
 		gui.animate(gui.get_node('enemy_damage'), 'position.y', pos_y + 5, gui.EASING_LINEAR, 1)
 		timer.delay(1.5, false, function() gui.set(gui.get_node('enemy_damage'), 'position.y', pos_y) end)
 		gui.set(gui.get_node('enemy_damage'), 'color.w', 1)
+		if enemy_type == hash('robber') and self.coins >= 100 then
+			self.coins = self.coins - 100
+			gui.set_text(gui.get_node('coins_count'), self.coins)
+		end
+
+		if enemy_type == hash('vampire') then
+			msg.post(self.enemy, 'add_health',{add_health = 20})
+		end
 	end
 	
 	if self.health <= 0 then
@@ -169,6 +184,7 @@ function init(self)
 	self.level = 1
 	self.exp = 0
 	self.max_exp = 500
+	self.poison_count = 0
 	gui.set_text(gui.get_node('potion_count'), self.potions)
 	max_energy_scale = gui.get(gui.get_node('black_rect'), 'scale.x')
 	energy_scale = gui.get(gui.get_node('black_rect'), 'scale.x')
@@ -181,6 +197,7 @@ function init(self)
 	self.damage_types = {'miss','damage','crit_damage'}
 	max_exp_scale = gui.get(gui.get_node('black_rect1'), 'scale.x')
 	set_exp_scale()
+	timer.delay(0.2, false, function() msg.post(self.enemy, 'player_damage', {player_damage = self.damage})end)
 	
 end
 
@@ -199,6 +216,7 @@ function on_message(self, message_id, message, sender)
 		self.enemies_of_level = message.enemies_in_levels
 		self.current_enemies_of_level = self.enemies_of_level
 		gui.set_text(gui.get_node('enemies_count'), 'Врагов на уровне: '..self.current_enemies_of_level..'/'..self.enemies_of_level)
+		timer.delay(0.2, false, function() msg.post(self.enemy, 'player_damage', {player_damage = self.damage})end)
 	end
 
 	if message_id == hash('send_id_enemy') then
@@ -213,6 +231,7 @@ function on_message(self, message_id, message, sender)
 		print(message.exp)
 		add_exp(self, message.exp)
 		add_exp_scale(self,message.exp)
+		timer.delay(0.2, false, function() msg.post(self.enemy, 'player_damage', {player_damage = self.damage})end)
 		if self.exp >= self.max_exp then
 			add_level(self)
 			self.health = self.max_health
@@ -231,6 +250,7 @@ function on_message(self, message_id, message, sender)
 	if message_id == hash('current_enemies_count') then
 		self.current_enemies_of_level = message.current_enemies_count
 		gui.set_text(gui.get_node('enemies_count'), 'Врагов на уровне: '..self.current_enemies_of_level..'/'..self.enemies_of_level)
+		
 	end
 
 	if message_id == hash('add_coins') then
@@ -238,7 +258,7 @@ function on_message(self, message_id, message, sender)
 	end
 
 	if message_id == hash('player_damage') and self.health > 0 then
-		take_damage(self, message.damage)
+		take_damage(self, message.damage,message.type)
 		
 	end
 	if message_id == hash('minus_energy') then
@@ -265,6 +285,36 @@ function on_message(self, message_id, message, sender)
 		energy_count = self.max_energy / 10
 		energy_scale_damage =  max_energy_scale / energy_count
 
+	end
+
+	if message_id == hash('poison') then
+		self.poison_time = timer.delay(5, true, function()
+			local pos_y = gui.get(gui.get_node('enemy_damage'), 'position.y')
+			gui.set_color(gui.get_node('enemy_damage'),vmath.vector4(0,1,0,0))
+			gui.set(gui.get_node('screen_damage'), 'color.w', 0.6)
+			gui.animate(gui.get_node('screen_damage'), 'color.w', 0, gui.EASING_LINEAR, 0.3)
+			self.health = self.health - message.poison_damage
+			gui.set_text(gui.get_node('enemy_damage'), '-'..message.poison_damage)
+			gui.animate(gui.get_node('enemy_damage'), 'color.w', 0, gui.EASING_LINEAR, 1)
+			gui.animate(gui.get_node('enemy_damage'), 'position.y', pos_y + 5, gui.EASING_LINEAR, 1)
+			timer.delay(1.5, false, function() gui.set(gui.get_node('enemy_damage'), 'position.y', pos_y) end)
+			gui.set(gui.get_node('enemy_damage'), 'color.w', 1)
+
+			
+			gui.set_text(gui.get_node('health_count'), self.health..'/'..self.max_health)
+			self.poison_count = self.poison_count + 1
+			if self.poison_count == 6 then 
+				timer.cancel(self.poison_time)
+				self.poison_count = 0
+			end
+
+			if self.health <= 0 then
+				self.health = 0
+				msg.post('/game_manager#game_manager', 'end_game')
+				timer.cancel(self.poison_time)
+			end
+			gui.set_text(gui.get_node('health_count'), self.health..'/'..self.max_health)
+		 end)
 	end
 	
 	if message_id == hash('add_energy') then

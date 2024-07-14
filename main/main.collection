@@ -83,7 +83,7 @@ embedded_instances {
   "  }\n"
   "  properties {\n"
   "    id: \"health\"\n"
-  "    value: \"60.0\"\n"
+  "    value: \"100.0\"\n"
   "    type: PROPERTY_TYPE_NUMBER\n"
   "  }\n"
   "  properties {\n"

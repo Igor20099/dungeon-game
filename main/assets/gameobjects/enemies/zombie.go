@@ -43,8 +43,13 @@ components {
     w: 1.0
   }
   properties {
+    id: "type"
+    value: "zombie"
+    type: PROPERTY_TYPE_HASH
+  }
+  properties {
     id: "health"
-    value: "50.0"
+    value: "100.0"
     type: PROPERTY_TYPE_NUMBER
   }
   properties {
@@ -54,7 +59,7 @@ components {
   }
   properties {
     id: "delay_attack"
-    value: "3.0"
+    value: "4.0"
     type: PROPERTY_TYPE_NUMBER
   }
   properties {

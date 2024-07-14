@@ -43,23 +43,28 @@ components {
     w: 1.0
   }
   properties {
+    id: "type"
+    value: "golem"
+    type: PROPERTY_TYPE_HASH
+  }
+  properties {
     id: "health"
-    value: "50.0"
+    value: "120.0"
     type: PROPERTY_TYPE_NUMBER
   }
   properties {
     id: "damage"
-    value: "10.0"
+    value: "30.0"
     type: PROPERTY_TYPE_NUMBER
   }
   properties {
     id: "delay_attack"
-    value: "3.0"
+    value: "5.0"
     type: PROPERTY_TYPE_NUMBER
   }
   properties {
     id: "coins"
-    value: "200.0"
+    value: "300.0"
     type: PROPERTY_TYPE_NUMBER
   }
   properties {
