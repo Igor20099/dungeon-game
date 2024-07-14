@@ -418,6 +418,11 @@ function on_message(self, message_id, message, sender)
 
 	if message_id == hash('blood_sword_damage') then
 		self.health = self.health - 5
+		if self.health <= 0 then
+			self.health = 0
+			gui.set_text(gui.get_node('health_count'), self.health..'/'..self.max_health)
+			msg.post('/game_manager#game_manager', 'end_game')
+		end
 		gui.set_text(gui.get_node('health_count'), self.health..'/'..self.max_health)
 	end
 
