@@ -13,9 +13,15 @@ end
 
 --Добавление монет при уничтожении противника
 local function add_coins(self,coins)
+	local pos_y = gui.get(gui.get_node('add_coins'), 'position.y')
 	local temp_current_coins = self.coins
+	gui.set(gui.get_node('add_coins'), 'color.w', 1)
+	gui.animate(gui.get_node('add_coins'), 'color.w', 0, gui.EASING_LINEAR, 1)
+	gui.animate(gui.get_node('add_coins'), 'position.y', pos_y + 50, gui.EASING_LINEAR, 1)
+	gui.set_text(gui.get_node('coins_from_enemy'), '+'..coins)
+	timer.delay(1.5, false, function() gui.set(gui.get_node('add_coins'), 'position.y', pos_y) end)
 	self.coins = self.coins + coins
-	self.add_coins = timer.delay(0.003, true, function() 
+	self.add_coins = timer.delay(0.002, true, function() 
 		if self.coins > temp_current_coins then
 			temp_current_coins = temp_current_coins + 1
 			gui.set_text(gui.get_node('coins_count'), temp_current_coins)
@@ -100,23 +106,43 @@ end
 local function take_damage(self,enemy_damage,enemy_type)
 	local damage_type = self.damage_types[math.random(1,#self.damage_types)]
 	local pos_y = gui.get(gui.get_node('enemy_damage'), 'position.y')
+	local pos_x = gui.get(gui.get_node('enemy_damage'), 'position.x')
 	if damage_type == 'miss' then
-		gui.set_text(gui.get_node('enemy_damage'),'Промах')
-		gui.set_color(gui.get_node('enemy_damage'),vmath.vector4(1,1,1,0))
-		gui.animate(gui.get_node('enemy_damage'), 'color.w', 0, gui.EASING_LINEAR, 1)
-		gui.animate(gui.get_node('enemy_damage'), 'position.y', pos_y + 5, gui.EASING_LINEAR, 1)
-		timer.delay(1.5, false, function() gui.set(gui.get_node('enemy_damage'), 'position.y', pos_y) end)
-		gui.set(gui.get_node('enemy_damage'), 'color.w', 1)
+		if self.armor > 0 then
+			gui.set_text(gui.get_node('enemy_damage'),'Промах')
+			gui.set(gui.get_node('enemy_damage'), 'position.x', pos_x + 150)
+			gui.set(gui.get_node('enemy_damage'), 'position.y', pos_y + 300)
+			gui.set_color(gui.get_node('enemy_damage'),vmath.vector4(1,1,1,0))
+			gui.animate(gui.get_node('enemy_damage'), 'color.w', 0, gui.EASING_LINEAR, 1)
+			gui.animate(gui.get_node('enemy_damage'), 'position.y', pos_y + 300 + 50, gui.EASING_LINEAR, 1)
+			timer.delay(1.5, false, function() gui.set(gui.get_node('enemy_damage'), 'position.y', pos_y)
+			gui.set(gui.get_node('enemy_damage'), 'position.x', pos_x)
+		 end)
+			gui.set(gui.get_node('enemy_damage'), 'color.w', 1)
+		else
+			gui.set_text(gui.get_node('enemy_damage'),'Промах')
+			gui.set_color(gui.get_node('enemy_damage'),vmath.vector4(1,1,1,0))
+			gui.animate(gui.get_node('enemy_damage'), 'color.w', 0, gui.EASING_LINEAR, 1)
+			gui.animate(gui.get_node('enemy_damage'), 'position.y', pos_y + 5, gui.EASING_LINEAR, 1)
+			timer.delay(1.5, false, function() gui.set(gui.get_node('enemy_damage'), 'position.y', pos_y) end)
+			gui.set(gui.get_node('enemy_damage'), 'color.w', 1)
+		end
+		
 	elseif damage_type == 'damage' then
 		if self.armor > 0 then
+			gui.set(gui.get_node('enemy_damage'), 'position.y', pos_y + 300)
+			gui.set(gui.get_node('enemy_damage'), 'position.x', pos_x + 150)
 			gui.set(gui.get_node('screen_damage'), 'color.w', 0.6)
 			gui.animate(gui.get_node('screen_damage'), 'color.w', 0, gui.EASING_LINEAR, 0.3)
 			gui.set_color(gui.get_node('enemy_damage'),vmath.vector4(1,1,1,0))
 			self.armor = self.armor - enemy_damage
 			gui.set_text(gui.get_node('enemy_damage'), '-'..enemy_damage)
 			gui.animate(gui.get_node('enemy_damage'), 'color.w', 0, gui.EASING_LINEAR, 1)
-			gui.animate(gui.get_node('enemy_damage'), 'position.y', pos_y + 15, gui.EASING_LINEAR, 1)
-			timer.delay(1.5, false, function() gui.set(gui.get_node('enemy_damage'), 'position.y', pos_y) end)
+			gui.animate(gui.get_node('enemy_damage'), 'position.y', pos_y +300 + 50, gui.EASING_LINEAR, 1)
+			timer.delay(1.5, false, function() gui.set(gui.get_node('enemy_damage'), 'position.y', pos_y) 
+			gui.set(gui.get_node('enemy_damage'), 'position.x', pos_x)
+
+		end)
 			gui.set(gui.get_node('enemy_damage'), 'color.w', 1)
 			gui.set_text(gui.get_node('health_count'), self.armor)
 			if self.armor <= 0 then
@@ -138,7 +164,9 @@ local function take_damage(self,enemy_damage,enemy_type)
 			gui.set_text(gui.get_node('enemy_damage'), '-'..enemy_damage)
 			gui.animate(gui.get_node('enemy_damage'), 'color.w', 0, gui.EASING_LINEAR, 1)
 			gui.animate(gui.get_node('enemy_damage'), 'position.y', pos_y + 5, gui.EASING_LINEAR, 1)
-			timer.delay(1.5, false, function() gui.set(gui.get_node('enemy_damage'), 'position.y', pos_y) end)
+			timer.delay(1.5, false, function() gui.set(gui.get_node('enemy_damage'), 'position.y', pos_y) 
+			gui.set(gui.get_node('enemy_damage'), 'position.x', pos_x)
+		end)
 			gui.set(gui.get_node('enemy_damage'), 'color.w', 1)
 			gui.set_text(gui.get_node('health_count'), self.health..'/'..self.max_health)
 
@@ -152,14 +180,18 @@ local function take_damage(self,enemy_damage,enemy_type)
 		end
 	elseif damage_type == 'crit_damage' then
 		if self.armor > 0 then
+			gui.set(gui.get_node('enemy_damage'), 'position.y', pos_y + 300)
+			gui.set(gui.get_node('enemy_damage'), 'position.x', pos_x + 150)
 			gui.set(gui.get_node('screen_damage'), 'color.w', 0.6)
 			gui.animate(gui.get_node('screen_damage'), 'color.w', 0, gui.EASING_LINEAR, 0.3)
-			gui.set_color(gui.get_node('enemy_damage'),vmath.vector4(1,1,1,0))
+			gui.set_color(gui.get_node('enemy_damage'),vmath.vector4(1,0,0,0))
 			self.armor = self.armor - enemy_damage * 2
-			gui.set_text(gui.get_node('enemy_damage'), '-'..enemy_damage)
+			gui.set_text(gui.get_node('enemy_damage'), '-'..enemy_damage * 2)
 			gui.animate(gui.get_node('enemy_damage'), 'color.w', 0, gui.EASING_LINEAR, 1)
-			gui.animate(gui.get_node('enemy_damage'), 'position.y', pos_y + 15, gui.EASING_LINEAR, 1)
-			timer.delay(1.5, false, function() gui.set(gui.get_node('enemy_damage'), 'position.y', pos_y) end)
+			gui.animate(gui.get_node('enemy_damage'), 'position.y', pos_y + 300 + 50, gui.EASING_LINEAR, 1)
+			timer.delay(1.5, false, function() gui.set(gui.get_node('enemy_damage'), 'position.y', pos_y) 
+			gui.set(gui.get_node('enemy_damage'), 'position.x', pos_x)
+		end)
 			gui.set(gui.get_node('enemy_damage'), 'color.w', 1)
 			gui.set_text(gui.get_node('health_count'), self.armor)
 			if self.armor <= 0 then
@@ -246,6 +278,7 @@ function init(self)
 	self.armor = 0
 	self.pos_health_count_x = gui.get(gui.get_node('health_count'), 'position.x')
 	self.chest = nil
+	gui.set(gui.get_node('add_coins'), 'color.w', 0)
 end
 
 
@@ -390,7 +423,7 @@ function on_message(self, message_id, message, sender)
 		gui.set_text(gui.get_node('health_count'), self.armor)
 		gui.set_scale(gui.get_node('health_count'), vmath.vector3(10,10,1))
 		gui.set_scale(gui.get_node('enemy_damage'), vmath.vector3(10,10,1))
-		gui.set(gui.get_node('health_count'), 'position.x', self.pos_health_count_x + 200)
+		gui.set(gui.get_node('health_count'), 'position.x', self.pos_health_count_x + 300)
 		gui.play_flipbook(gui.get_node('heart'), "chain_armor")
 	end
 
@@ -404,7 +437,7 @@ function on_message(self, message_id, message, sender)
 		gui.set_text(gui.get_node('health_count'), self.armor)
 		gui.set_scale(gui.get_node('health_count'), vmath.vector3(10,10,1))
 		gui.set_scale(gui.get_node('enemy_damage'), vmath.vector3(10,10,1))
-		gui.set(gui.get_node('health_count'), 'position.x', self.pos_health_count_x + 200)
+		gui.set(gui.get_node('health_count'), 'position.x', self.pos_health_count_x + 300)
 		gui.play_flipbook(gui.get_node('heart'), "armor")
 	end
 
@@ -499,7 +532,7 @@ function on_message(self, message_id, message, sender)
 	end
 
 	if message_id == hash('add_max_damage') then
-		self.damage = self.damage + 10
+		self.damage = self.damage + 2
 		self.health = self.max_health
 		if self.armor <= 0 then
 			gui.set_text(gui.get_node('health_count'), self.health..'/'..self.max_health)

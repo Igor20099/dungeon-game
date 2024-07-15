@@ -55,7 +55,7 @@ function init(self)
 	POISON_SWORD,
 	RUSTY_SWORD,
 	STAMINA_SWORD}
-	-- self.chest_items = {LIGHT_ARMOR}
+	-- self.chest_items = {ARMOR}
 	self.x,self.y = window.get_size()
 	gui.set(my_node, 'position.x', self.x + 500)
 	
