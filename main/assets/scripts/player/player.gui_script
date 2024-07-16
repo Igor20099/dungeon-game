@@ -23,7 +23,7 @@ local function add_coins(self,coins)
 	-- timer.delay(1.5, false, function() gui.set(gui.get_node('add_coins'), 'position.y', pos_y) end)
 	local rand_y = math.random(380,400)
 	coins_message = gui.new_text_node(vmath.vector3(100,rand_y,1), '+'..coins)
-	coins_image = gui.new_box_node(vmath.vector3(144,rand_y + 2,1), vmath.vector3(30,30,1))
+	coins_image = gui.new_box_node(vmath.vector3(150,rand_y + 2,1), vmath.vector3(30,30,1))
 	gui.set_texture(coins_image, 'items')
 	gui.play_flipbook(coins_image, "coin")
 	gui.animate(coins_message, 'color.w', 0, gui.EASING_LINEAR, 0.8)
@@ -70,6 +70,15 @@ local function add_potion(self)
 	gui.set(gui.get_node('potion_count'), 'color.w', 1)
 	self.potions = self.potions + 1
 	gui.set_text(gui.get_node('potion_count'), self.potions)
+
+	potion_message = gui.new_text_node(vmath.vector3(130,50,1), '+'..1)
+	potion_image = gui.new_box_node(vmath.vector3(160,50,1), vmath.vector3(40,40,1))
+	gui.set_texture(potion_image, 'items')
+	gui.play_flipbook(potion_image, "potion")
+	gui.animate(potion_message, 'color.w', 0, gui.EASING_LINEAR, 1)
+	gui.animate(potion_message, 'position.y', 50 + 50, gui.EASING_LINEAR, 1)
+	gui.animate(potion_image, 'color.w', 0, gui.EASING_LINEAR, 1)
+	gui.animate(potion_image, 'position.y', 50 + 50 + 2, gui.EASING_LINEAR, 1)
 
 end
 
@@ -184,6 +193,7 @@ local function take_damage(self,enemy_damage,enemy_type)
 		if enemy_type == hash('robber') and self.coins >= 50 then
 			self.coins = self.coins - 50
 			gui.set_text(gui.get_node('coins_count'), self.coins)
+			particlefx.play('/game_manager#coins_2')
 		end
 		if enemy_type == hash('vampire') then
 			msg.post(self.enemy, 'add_health',{add_health = 10})
@@ -192,10 +202,10 @@ local function take_damage(self,enemy_damage,enemy_type)
 			local rand_poison = math.random(1,2)
 			if self.armor > 0  then
 				if rand_poison == 1 then
-					damage_message = gui.new_text_node(vmath.vector3(100,780,1),-5)
+					damage_message = gui.new_text_node(vmath.vector3(100,760,1),-5)
 					gui.set(damage_message, gui.PROP_COLOR, vmath.vector4(0,1,0,1))
 					gui.animate(damage_message, 'color.w', 0, gui.EASING_LINEAR,0.8)
-					gui.animate(damage_message, 'position.y', 790, gui.EASING_LINEAR, 0.4)
+					gui.animate(damage_message, 'position.y', 770, gui.EASING_LINEAR, 0.4)
 
 					self.armor= self.armor - 5
 					-- local pos_y = gui.get(gui.get_node('enemy_damage'), 'position.y')
@@ -208,14 +218,24 @@ local function take_damage(self,enemy_damage,enemy_type)
 
 
 					gui.set_text(gui.get_node('health_count'), self.armor)
+					if self.armor <= 0 then
+						self.armor = 0
+						gui.set(gui.get_node('health_count'), 'position.x', self.pos_health_count_x)
+						gui.set_texture(gui.get_node('heart'), 'items')
+						gui.play_flipbook(gui.get_node('heart'), "heart")
+						gui.set_scale(gui.get_node('heart'), vmath.vector3(3,3,1))
+						gui.set_scale(gui.get_node('health_count'), vmath.vector3(0.3,0.3,1))
+						gui.set_scale(gui.get_node('enemy_damage'), vmath.vector3(0.3,0.3,1))
+						gui.set_text(gui.get_node('health_count'), self.health..'/'..self.max_health)
+					end
 				end
 				
 			else
 				if rand_poison == 1 then  
-					damage_message = gui.new_text_node(vmath.vector3(100,780,1),-5)
+					damage_message = gui.new_text_node(vmath.vector3(110,770,1),-5)
 					gui.set(damage_message, gui.PROP_COLOR, vmath.vector4(0,1,0,1))
 					gui.animate(damage_message, 'color.w', 0, gui.EASING_LINEAR,0.8)
-					gui.animate(damage_message, 'position.y', 790, gui.EASING_LINEAR, 0.4)
+					gui.animate(damage_message, 'position.y', 780, gui.EASING_LINEAR, 0.4)
 					self.health = self.health - 5
 					-- 				gui.set_text(gui.get_node('enemy_damage'), '-'..5)
 					-- 				gui.animate(gui.get_node('enemy_damage'), 'color.w', 0, gui.EASING_LINEAR, 1)
@@ -275,6 +295,7 @@ local function take_damage(self,enemy_damage,enemy_type)
 		if enemy_type == hash('robber') and self.coins >= 100 then
 			self.coins = self.coins - 100
 			gui.set_text(gui.get_node('coins_count'), self.coins)
+			particlefx.play('/game_manager#coins_2')
 		end
 
 		if enemy_type == hash('vampire') then
@@ -284,20 +305,30 @@ local function take_damage(self,enemy_damage,enemy_type)
 			local rand_poison = math.random(1,2)
 			if self.armor > 0  then
 				if rand_poison == 1 then
-					damage_message = gui.new_text_node(vmath.vector3(100,780,1),-5)
+					damage_message = gui.new_text_node(vmath.vector3(100,760,1),-5)
 					gui.set(damage_message, gui.PROP_COLOR, vmath.vector4(0,1,0,1))
 					gui.animate(damage_message, 'color.w', 0, gui.EASING_LINEAR,0.8)
-					gui.animate(damage_message, 'position.y', 790, gui.EASING_LINEAR, 0.4)
+					gui.animate(damage_message, 'position.y', 770, gui.EASING_LINEAR, 0.4)
 					self.armor= self.armor - 5
 					gui.set_text(gui.get_node('health_count'), self.armor)
+					if self.armor <= 0 then
+						self.armor = 0
+						gui.set(gui.get_node('health_count'), 'position.x', self.pos_health_count_x)
+						gui.set_texture(gui.get_node('heart'), 'items')
+						gui.play_flipbook(gui.get_node('heart'), "heart")
+						gui.set_scale(gui.get_node('heart'), vmath.vector3(3,3,1))
+						gui.set_scale(gui.get_node('health_count'), vmath.vector3(0.3,0.3,1))
+						gui.set_scale(gui.get_node('enemy_damage'), vmath.vector3(0.3,0.3,1))
+						gui.set_text(gui.get_node('health_count'), self.health..'/'..self.max_health)
+					end
 				end
 
 			else
 				if rand_poison == 1 then  
-					damage_message = gui.new_text_node(vmath.vector3(100,780,1),-5)
+					damage_message = gui.new_text_node(vmath.vector3(110,770,1),-5)
 					gui.set(damage_message, gui.PROP_COLOR, vmath.vector4(0,1,0,1))
 					gui.animate(damage_message, 'color.w', 0, gui.EASING_LINEAR,0.8)
-					gui.animate(damage_message, 'position.y', 790, gui.EASING_LINEAR, 0.4)
+					gui.animate(damage_message, 'position.y', 780, gui.EASING_LINEAR, 0.4)
 					self.health = self.health - 5
 					gui.set_text(gui.get_node('health_count'), self.health..'/'..self.max_health)
 				end
@@ -604,6 +635,7 @@ function on_message(self, message_id, message, sender)
 	if message_id == hash('add_max_health') then
 		self.max_health = self.max_health + 10
 		self.health = self.max_health
+		self.energy = self.max_energy
 		if self.armor <= 0 then
 			gui.set_text(gui.get_node('health_count'), self.health..'/'..self.max_health)
 		end
@@ -615,6 +647,7 @@ function on_message(self, message_id, message, sender)
 	if message_id == hash('add_max_damage') then
 		self.damage = self.damage + 2
 		self.health = self.max_health
+		self.energy = self.max_energy
 		if self.armor <= 0 then
 			gui.set_text(gui.get_node('health_count'), self.health..'/'..self.max_health)
 		end
@@ -626,6 +659,7 @@ function on_message(self, message_id, message, sender)
 	if message_id == hash('add_max_energy') then
 		self.max_energy = self.max_energy + 10
 		self.health = self.max_health
+		self.energy = self.max_energy
 		if self.armor <= 0 then
 			gui.set_text(gui.get_node('health_count'), self.health..'/'..self.max_health)
 		end
@@ -633,56 +667,7 @@ function on_message(self, message_id, message, sender)
 		msg.post(self.enemy, 'show')
 		msg.post(self.chest, 'show')
 	end
-
--- 	if message_id == hash('poison') then
--- 		self.poison_time = timer.delay(5, true, function()
--- 			if self.armor > 0 then
--- 				local pos_y = gui.get(gui.get_node('enemy_damage'), 'position.y')
--- 				gui.set_color(gui.get_node('enemy_damage'),vmath.vector4(0,1,0,0))
--- 				gui.set(gui.get_node('screen_damage'), 'color.w', 0.6)
--- 				gui.animate(gui.get_node('screen_damage'), 'color.w', 0, gui.EASING_LINEAR, 0.3)
--- 				self.armor= self.armor - message.poison_damage
--- 				gui.set_text(gui.get_node('enemy_damage'), '-'..message.poison_damage)
--- 				gui.animate(gui.get_node('enemy_damage'), 'color.w', 0, gui.EASING_LINEAR, 1)
--- 				gui.animate(gui.get_node('enemy_damage'), 'position.y', pos_y + 5, gui.EASING_LINEAR, 1)
--- 				timer.delay(1.5, false, function() gui.set(gui.get_node('enemy_damage'), 'position.y', pos_y) end)
--- 				gui.set(gui.get_node('enemy_damage'), 'color.w', 1)
--- 
--- 
--- 				gui.set_text(gui.get_node('health_count'), self.armor)
--- 			else
--- 				local pos_y = gui.get(gui.get_node('enemy_damage'), 'position.y')
--- 				gui.set_color(gui.get_node('enemy_damage'),vmath.vector4(0,1,0,0))
--- 				gui.set(gui.get_node('screen_damage'), 'color.w', 0.6)
--- 				gui.animate(gui.get_node('screen_damage'), 'color.w', 0, gui.EASING_LINEAR, 0.3)
--- 				self.health = self.health - message.poison_damage
--- 				gui.set_text(gui.get_node('enemy_damage'), '-'..message.poison_damage)
--- 				gui.animate(gui.get_node('enemy_damage'), 'color.w', 0, gui.EASING_LINEAR, 1)
--- 				gui.animate(gui.get_node('enemy_damage'), 'position.y', pos_y + 5, gui.EASING_LINEAR, 1)
--- 				timer.delay(1.5, false, function() gui.set(gui.get_node('enemy_damage'), 'position.y', pos_y) end)
--- 				gui.set(gui.get_node('enemy_damage'), 'color.w', 1)
--- 
--- 
--- 				gui.set_text(gui.get_node('health_count'), self.health..'/'..self.max_health)
--- 
--- 
--- 			end
--- 			self.poison_count = self.poison_count + 1
--- 			if self.poison_count == 6 then 
--- 				timer.cancel(self.poison_time)
--- 				self.poison_count = 0
--- 			end
--- 
--- 			if self.health <= 0 then
--- 				self.health = 0
--- 				gui.set_text(gui.get_node('health_count'), self.health..'/'..self.max_health)
--- 				msg.post('/game_manager#game_manager', 'end_game')
--- 				timer.cancel(self.poison_time)
--- 			end
--- 		
--- 		 end)
--- 	end
--- 	
+ 	
 	if message_id == hash('add_energy') then
 		if self.buff == 'stamina_sword' then
 			self.energy_time_count = 0.2
