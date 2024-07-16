@@ -13,6 +13,7 @@ end
 
 --Добавление монет при уничтожении противника
 local function add_coins(self,coins)
+	particlefx.play('/game_manager#coins')
 	local pos_y = gui.get(gui.get_node('add_coins'), 'position.y')
 	local temp_current_coins = self.coins
 	gui.set(gui.get_node('add_coins'), 'color.w', 1)
