@@ -188,6 +188,50 @@ local function take_damage(self,enemy_damage,enemy_type)
 		if enemy_type == hash('vampire') then
 			msg.post(self.enemy, 'add_health',{add_health = 10})
 		end
+		if enemy_type == hash('snake') then
+			local rand_poison = math.random(1,2)
+			if self.armor > 0  then
+				if rand_poison == 1 then
+					damage_message = gui.new_text_node(vmath.vector3(100,780,1),-5)
+					gui.set(damage_message, gui.PROP_COLOR, vmath.vector4(0,1,0,1))
+					gui.animate(damage_message, 'color.w', 0, gui.EASING_LINEAR,0.8)
+					gui.animate(damage_message, 'position.y', 790, gui.EASING_LINEAR, 0.4)
+
+					self.armor= self.armor - 5
+					-- local pos_y = gui.get(gui.get_node('enemy_damage'), 'position.y')
+					-- gui.set_color(gui.get_node('enemy_damage'),vmath.vector4(0,1,0,0))
+					-- gui.set_text(gui.get_node('enemy_damage'), '-'..5)
+					-- gui.animate(gui.get_node('enemy_damage'), 'color.w', 0, gui.EASING_LINEAR, 1)
+					-- gui.animate(gui.get_node('enemy_damage'), 'position.y', pos_y + 5, gui.EASING_LINEAR, 1)
+					-- timer.delay(1.5, false, function() gui.set(gui.get_node('enemy_damage'), 'position.y', pos_y) end)
+					-- gui.set(gui.get_node('enemy_damage'), 'color.w', 1)
+
+
+					gui.set_text(gui.get_node('health_count'), self.armor)
+				end
+				
+			else
+				if rand_poison == 1 then  
+					damage_message = gui.new_text_node(vmath.vector3(100,780,1),-5)
+					gui.set(damage_message, gui.PROP_COLOR, vmath.vector4(0,1,0,1))
+					gui.animate(damage_message, 'color.w', 0, gui.EASING_LINEAR,0.8)
+					gui.animate(damage_message, 'position.y', 790, gui.EASING_LINEAR, 0.4)
+					self.health = self.health - 5
+					-- 				gui.set_text(gui.get_node('enemy_damage'), '-'..5)
+					-- 				gui.animate(gui.get_node('enemy_damage'), 'color.w', 0, gui.EASING_LINEAR, 1)
+					-- 				gui.animate(gui.get_node('enemy_damage'), 'position.y', pos_y + 5, gui.EASING_LINEAR, 1)
+					-- 				timer.delay(1.5, false, function() gui.set(gui.get_node('enemy_damage'), 'position.y', pos_y) end)
+					-- 				gui.set(gui.get_node('enemy_damage'), 'color.w', 1)
+					-- 
+
+					gui.set_text(gui.get_node('health_count'), self.health..'/'..self.max_health)
+				end
+					
+					
+					
+			end
+
+		end
 	elseif damage_type == 'crit_damage' then
 		if self.armor > 0 then
 			gui.set(gui.get_node('enemy_damage'), 'position.y', pos_y + 300)
@@ -235,6 +279,33 @@ local function take_damage(self,enemy_damage,enemy_type)
 
 		if enemy_type == hash('vampire') then
 			msg.post(self.enemy, 'add_health',{add_health = 20})
+		end
+		if enemy_type == hash('snake') then
+			local rand_poison = math.random(1,2)
+			if self.armor > 0  then
+				if rand_poison == 1 then
+					damage_message = gui.new_text_node(vmath.vector3(100,780,1),-5)
+					gui.set(damage_message, gui.PROP_COLOR, vmath.vector4(0,1,0,1))
+					gui.animate(damage_message, 'color.w', 0, gui.EASING_LINEAR,0.8)
+					gui.animate(damage_message, 'position.y', 790, gui.EASING_LINEAR, 0.4)
+					self.armor= self.armor - 5
+					gui.set_text(gui.get_node('health_count'), self.armor)
+				end
+
+			else
+				if rand_poison == 1 then  
+					damage_message = gui.new_text_node(vmath.vector3(100,780,1),-5)
+					gui.set(damage_message, gui.PROP_COLOR, vmath.vector4(0,1,0,1))
+					gui.animate(damage_message, 'color.w', 0, gui.EASING_LINEAR,0.8)
+					gui.animate(damage_message, 'position.y', 790, gui.EASING_LINEAR, 0.4)
+					self.health = self.health - 5
+					gui.set_text(gui.get_node('health_count'), self.health..'/'..self.max_health)
+				end
+
+
+
+			end
+
 		end
 	end
 	

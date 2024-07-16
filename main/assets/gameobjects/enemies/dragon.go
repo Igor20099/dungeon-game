@@ -59,7 +59,7 @@ components {
   }
   properties {
     id: "delay_attack"
-    value: "3.0"
+    value: "4.0"
     type: PROPERTY_TYPE_NUMBER
   }
   properties {

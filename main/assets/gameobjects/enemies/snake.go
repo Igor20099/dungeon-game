@@ -49,7 +49,7 @@ components {
   }
   properties {
     id: "health"
-    value: "30.0"
+    value: "50.0"
     type: PROPERTY_TYPE_NUMBER
   }
   properties {

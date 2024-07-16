@@ -64,7 +64,7 @@ components {
   }
   properties {
     id: "coins"
-    value: "100.0"
+    value: "200.0"
     type: PROPERTY_TYPE_NUMBER
   }
   properties {
