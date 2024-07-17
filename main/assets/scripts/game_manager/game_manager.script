@@ -37,6 +37,17 @@ end
 
 
 function on_message(self, message_id, message, sender)
+
+	if message_id == hash('start_game') then
+
+		-- self.level_of_dungeon = 1
+		-- self.enemies_in_levels = math.random(3,5)
+		-- self.curent_enemies_of_level = self.enemies_in_levels
+		-- msg.post('/player#player', 'init_dungeon',{level_of_dungeon = self.level_of_dungeon,enemies_in_levels = self.enemies_in_levels})
+		-- create_random_enemy(self)
+	end
+
+	
 	if message_id == hash('create_new_enemy') and self.curent_enemies_of_level > 1  then
 		self.curent_enemies_of_level = self.curent_enemies_of_level - 1
 		msg.post('/player#player', 'current_enemies_count', {current_enemies_count = self.curent_enemies_of_level})

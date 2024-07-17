@@ -377,6 +377,7 @@ local function add_exp_scale(self,exp)
 end
 
 function init(self)
+	msg.post('.', 'disable')
 	msg.post('.', 'acquire_input_focus')
 	msg.post('#level_up', 'disable')
 	self.coins = 0
@@ -398,7 +399,10 @@ function init(self)
 	self.damage_types = {'miss','damage','crit_damage'}
 	max_exp_scale = gui.get(gui.get_node('black_rect1'), 'scale.x')
 	set_exp_scale()
-	timer.delay(0.2, false, function() msg.post(self.enemy, 'player_damage', {player_damage = self.damage})end)
+	if self.enemy ~= nil then
+		timer.delay(0.2, false, function() msg.post(self.enemy, 'player_damage', {player_damage = self.damage})end)
+	end
+
 	gui.set_texture(gui.get_node('sword'), "swords")
 	gui.play_flipbook(gui.get_node('sword'), "sword")
 	self.buff = 'sword'
@@ -594,7 +598,9 @@ function on_message(self, message_id, message, sender)
 		self.enemies_of_level = message.enemies_in_levels
 		self.current_enemies_of_level = self.enemies_of_level
 		gui.set_text(gui.get_node('enemies_count'), 'Врагов на уровне: '..self.current_enemies_of_level..'/'..self.enemies_of_level)
-		timer.delay(0.2, false, function() msg.post(self.enemy, 'player_damage', {player_damage = self.damage})end)
+			timer.delay(0.2, false, function() msg.post(self.enemy, 'player_damage', {player_damage = self.damage})end)
+	
+		
 	end
 
 	if message_id == hash('send_id_enemy') then
