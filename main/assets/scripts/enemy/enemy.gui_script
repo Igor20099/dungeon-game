@@ -53,6 +53,8 @@ function init(self)
 
 	msg.post('/player#player','is_buff')
 	self.is_poison = false
+	
+
 		
 end
 
@@ -70,6 +72,10 @@ function on_message(self, message_id, message, sender)
 		self.player_damage = timer.delay(message.delay_attack, true, function() msg.post('/player#player', 'player_damage',{damage = self.damage, type = message.type})end)
 		if message.type == hash('snake') then
 			msg.post('/player#player','poison', {poison_damage = 5})
+		end
+
+		if message.type == hash('vampire') then
+			gui.set_enabled(gui.get_node('add_health'), false)
 		end
 	end
 
@@ -96,6 +102,13 @@ function on_message(self, message_id, message, sender)
 	end
 	if message_id == hash('add_health') then
 		self.health = self.health + message.add_health
+		local pos_y = gui.get(gui.get_node('add_health'), 'position.y')
+		gui.set_text(gui.get_node('add_health_count'), '+'..message.add_health)
+		gui.set(gui.get_node('add_health'), 'color.w', 1)
+		gui.animate(gui.get_node('add_health'), 'position.y', pos_y + 50, gui.EASING_LINEAR, 1)
+		gui.animate(gui.get_node('add_health'), 'color.w', 0, gui.EASING_LINEAR, 1)
+		timer.delay(1.5, false, function() gui.set(gui.get_node('add_health'), 'position.y', pos_y)end)
+		gui.set_enabled(gui.get_node('add_health'), true)
 		if self.health >= self.max_health then
 			self.health = self.max_health
 		end
