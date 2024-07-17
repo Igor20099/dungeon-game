@@ -29,22 +29,22 @@ function init(self)
 	self.level_of_dungeon = 1
 	self.enemies_in_levels = math.random(3,5)
 	self.curent_enemies_of_level = self.enemies_in_levels
-	msg.post('/player#player', 'init_dungeon',{level_of_dungeon = self.level_of_dungeon,enemies_in_levels = self.enemies_in_levels})
-	create_random_enemy(self)
+	-- msg.post('/player#player', 'init_dungeon',{level_of_dungeon = self.level_of_dungeon,enemies_in_levels = self.enemies_in_levels})
+	-- create_random_enemy(self)
 	self.chest_hide = false
+	print('game_manager_init!!!')
+
 end
 
 
 
 function on_message(self, message_id, message, sender)
 
-	if message_id == hash('start_game') then
+	if message_id == hash('start_game_one') then
 
-		-- self.level_of_dungeon = 1
-		-- self.enemies_in_levels = math.random(3,5)
-		-- self.curent_enemies_of_level = self.enemies_in_levels
-		-- msg.post('/player#player', 'init_dungeon',{level_of_dungeon = self.level_of_dungeon,enemies_in_levels = self.enemies_in_levels})
-		-- create_random_enemy(self)
+		
+		msg.post('/player#player', 'init_dungeon',{level_of_dungeon = self.level_of_dungeon,enemies_in_levels = self.enemies_in_levels})
+		create_random_enemy(self)
 	end
 
 	

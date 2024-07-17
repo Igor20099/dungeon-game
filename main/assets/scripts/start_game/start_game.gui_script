@@ -23,10 +23,10 @@ function on_message(self, message_id, message, sender)
 end
 
 function on_input(self, action_id, action)
-	if gui.pick_node(gui.get_node('start'), action.x, action.y) and action.released and action_id == hash("touch") then
-		gui.set_enabled(gui.get_node('start'), false)
+	if gui.pick_node(gui.get_node('start'), action.x, action.y) and action.released   and action_id == hash("touch") then
+		msg.post('.', 'disable')
 		msg.post('/player#player', 'enable')
-		msg.post('/game_manager#game_manager', 'start_game')
+		msg.post('/game_manager#game_manager', 'start_game_one')
 
 
 	end
