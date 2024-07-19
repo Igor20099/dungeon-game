@@ -157,7 +157,7 @@ function on_input(self, action_id, action)
 			end
 
 			if self.buff == 'health_sword' then
-				msg.post('/player#player', 'add_health_from_damage' ,{health = self.player_damage_1})
+				msg.post('/player#player', 'add_health_from_damage' ,{health = 5})
 			end
 
 			if self.buff == 'poison_sword' then
@@ -197,7 +197,7 @@ function on_input(self, action_id, action)
 			end
 
 			if self.buff == 'health_sword' then
-				msg.post('/player#player', 'add_health_from_damage' ,{health = self.player_damage_1 * 2})
+				msg.post('/player#player', 'add_health_from_damage' ,{health = 5})
 			end
 
 			if self.buff == 'poison_sword' then
@@ -242,7 +242,7 @@ function on_input(self, action_id, action)
 			msg.post('/game_manager#game_manager', 'create_new_enemy')
 
 			local chance_potion = math.random(1,10)
-			if chance_potion > 7 then
+			if chance_potion == 2 or chance_potion == 6 or chance_potion == 9 then
 				print(chance_potion)
 				msg.post('/player#player', 'add_potion')
 			end
