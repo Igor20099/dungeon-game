@@ -677,6 +677,7 @@ function on_message(self, message_id, message, sender)
 		gui.set_text(gui.get_node('damage_count'), self.damage)
 		msg.post(self.enemy, 'show')
 		msg.post(self.chest, 'show')
+		msg.post(self.enemy, 'change_damage',{damage = self.damage})
 	end
 
 	if message_id == hash('add_max_energy') then

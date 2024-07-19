@@ -3,6 +3,10 @@ fonts {
   name: "number"
   font: "/main/assets/fonts/number.font"
 }
+fonts {
+  name: "description"
+  font: "/main/assets/fonts/description.font"
+}
 background_color {
   x: 0.0
   y: 0.0
@@ -23,8 +27,8 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 1.0
-    y: 1.0
+    x: 1.2
+    y: 1.2
     z: 1.0
     w: 1.0
   }
@@ -35,9 +39,9 @@ nodes {
     w: 1.0
   }
   color {
-    x: 0.2
-    y: 0.102
-    z: 0.502
+    x: 0.6
+    y: 0.0
+    z: 0.0
     w: 1.0
   }
   type: TYPE_BOX
@@ -81,8 +85,8 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 0.8
-    y: 0.8
+    x: 0.9
+    y: 0.9
     z: 1.0
     w: 1.0
   }
