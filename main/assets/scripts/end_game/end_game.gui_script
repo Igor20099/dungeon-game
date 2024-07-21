@@ -1,26 +1,26 @@
+local defsave = require("defsave.defsave")
+
+local ya_scores = require("main.assets.scripts.yandex.ya_leaderboards")
+
 function init(self)
-	-- Add initialization code here
-	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
+	defsave.appname = "dephts_of_dungeon"
+	defsave.load("coins")
+
 	msg.post('.', 'acquire_input_focus')
 end
 
-function final(self)
-	-- Add finalization code here
-	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
-end
-
-function update(self, dt)
-	-- Add update code here
-	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
-end
-
 function on_message(self, message_id, message, sender)
-	-- Add message-handling code here
-	-- Learn more: https://defold.com/manuals/message-passing/
-	-- Remove this function if not needed
+	if message_id == hash('all_coins') then
+		local best_record = defsave.get('coins', 'record') or 0
+		if message.coins > best_record then
+			best_record = message.coins
+			defsave.set('coins','record',message.coins)
+			defsave.save("coins")
+		end
+		gui.set_text(gui.get_node('coins'), 'Монеты: '..message.coins)
+		gui.set_text(gui.get_node('record'), 'Рекорд: '..best_record)
+		ya_scores.set_score_handler(self,best_record)
+	end
 end
 
 function on_input(self, action_id, action)

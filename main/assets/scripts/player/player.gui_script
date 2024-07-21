@@ -213,7 +213,7 @@ local function take_damage(self,enemy_damage,enemy_type)
 					damage_message = gui.new_text_node(vmath.vector3(100,760,1),-5)
 					gui.set(damage_message, gui.PROP_COLOR, vmath.vector4(0,1,0,1))
 					gui.animate(damage_message, 'color.w', 0, gui.EASING_LINEAR,0.8)
-					gui.animate(damage_message, 'position.y', 770, gui.EASING_LINEAR, 0.4)
+					gui.animate(damage_message, 'position.y', 765, gui.EASING_LINEAR, 0.4)
 
 					self.armor= self.armor - 5
 					-- local pos_y = gui.get(gui.get_node('enemy_damage'), 'position.y')
@@ -240,10 +240,10 @@ local function take_damage(self,enemy_damage,enemy_type)
 				
 			else
 				if rand_poison == 1 then  
-					damage_message = gui.new_text_node(vmath.vector3(110,770,1),-5)
+					damage_message = gui.new_text_node(vmath.vector3(118,760,1),-5)
 					gui.set(damage_message, gui.PROP_COLOR, vmath.vector4(0,1,0,1))
 					gui.animate(damage_message, 'color.w', 0, gui.EASING_LINEAR,0.8)
-					gui.animate(damage_message, 'position.y', 780, gui.EASING_LINEAR, 0.4)
+					gui.animate(damage_message, 'position.y', 765, gui.EASING_LINEAR, 0.4)
 					self.health = self.health - 5
 					-- 				gui.set_text(gui.get_node('enemy_damage'), '-'..5)
 					-- 				gui.animate(gui.get_node('enemy_damage'), 'color.w', 0, gui.EASING_LINEAR, 1)
@@ -324,7 +324,7 @@ local function take_damage(self,enemy_damage,enemy_type)
 					damage_message = gui.new_text_node(vmath.vector3(100,760,1),-5)
 					gui.set(damage_message, gui.PROP_COLOR, vmath.vector4(0,1,0,1))
 					gui.animate(damage_message, 'color.w', 0, gui.EASING_LINEAR,0.8)
-					gui.animate(damage_message, 'position.y', 770, gui.EASING_LINEAR, 0.4)
+					gui.animate(damage_message, 'position.y', 765, gui.EASING_LINEAR, 0.4)
 					self.armor= self.armor - 5
 					gui.set_text(gui.get_node('health_count'), self.armor)
 					if self.armor <= 0 then
@@ -341,10 +341,10 @@ local function take_damage(self,enemy_damage,enemy_type)
 
 			else
 				if rand_poison == 1 then  
-					damage_message = gui.new_text_node(vmath.vector3(110,770,1),-5)
+					damage_message = gui.new_text_node(vmath.vector3(118,760,1),-5)
 					gui.set(damage_message, gui.PROP_COLOR, vmath.vector4(0,1,0,1))
 					gui.animate(damage_message, 'color.w', 0, gui.EASING_LINEAR,0.8)
-					gui.animate(damage_message, 'position.y', 780, gui.EASING_LINEAR, 0.4)
+					gui.animate(damage_message, 'position.y', 765, gui.EASING_LINEAR, 0.4)
 					self.health = self.health - 5
 					gui.set_text(gui.get_node('health_count'), self.health..'/'..self.max_health)
 				end
@@ -360,6 +360,7 @@ local function take_damage(self,enemy_damage,enemy_type)
 		self.health = 0
 		gui.set_text(gui.get_node('health_count'), self.health..'/'..self.max_health)
 		msg.post('/game_manager#game_manager', 'end_game')
+		msg.post('/game_manager#end_game', 'all_coins',{coins = self.coins})
 	end
 	
 end
