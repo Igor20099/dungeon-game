@@ -151,8 +151,8 @@ local function take_damage(self,enemy_damage,enemy_type)
 		if self.armor > 0 then
 			gui.set(gui.get_node('enemy_damage'), 'position.y', pos_y + 300)
 			gui.set(gui.get_node('enemy_damage'), 'position.x', pos_x + 150)
-			gui.set(gui.get_node('screen_damage'), 'color.w', 0.6)
-			gui.animate(gui.get_node('screen_damage'), 'color.w', 0, gui.EASING_LINEAR, 0.3)
+			-- gui.set(gui.get_node('screen_damage'), 'color.w', 0.4)
+			-- gui.animate(gui.get_node('screen_damage'), 'color.w', 0, gui.EASING_LINEAR, 0.3)
 			gui.set_color(gui.get_node('enemy_damage'),vmath.vector4(1,1,1,0))
 			self.armor = self.armor - enemy_damage
 			gui.set_text(gui.get_node('enemy_damage'), '-'..enemy_damage)
@@ -176,8 +176,8 @@ local function take_damage(self,enemy_damage,enemy_type)
 			end
 		else
 			
-			gui.set(gui.get_node('screen_damage'), 'color.w', 0.6)
-			gui.animate(gui.get_node('screen_damage'), 'color.w', 0, gui.EASING_LINEAR, 0.3)
+			-- gui.set(gui.get_node('screen_damage'), 'color.w', 0.4)
+			-- gui.animate(gui.get_node('screen_damage'), 'color.w', 0, gui.EASING_LINEAR, 0.3)
 			gui.set_color(gui.get_node('enemy_damage'),vmath.vector4(1,1,1,0))
 			self.health = self.health - enemy_damage
 			gui.set_text(gui.get_node('enemy_damage'), '-'..enemy_damage)
@@ -216,13 +216,7 @@ local function take_damage(self,enemy_damage,enemy_type)
 					gui.animate(damage_message, 'position.y', 765, gui.EASING_LINEAR, 0.4)
 
 					self.armor= self.armor - 5
-					-- local pos_y = gui.get(gui.get_node('enemy_damage'), 'position.y')
-					-- gui.set_color(gui.get_node('enemy_damage'),vmath.vector4(0,1,0,0))
-					-- gui.set_text(gui.get_node('enemy_damage'), '-'..5)
-					-- gui.animate(gui.get_node('enemy_damage'), 'color.w', 0, gui.EASING_LINEAR, 1)
-					-- gui.animate(gui.get_node('enemy_damage'), 'position.y', pos_y + 5, gui.EASING_LINEAR, 1)
-					-- timer.delay(1.5, false, function() gui.set(gui.get_node('enemy_damage'), 'position.y', pos_y) end)
-					-- gui.set(gui.get_node('enemy_damage'), 'color.w', 1)
+					
 
 
 					gui.set_text(gui.get_node('health_count'), self.armor)
@@ -264,8 +258,8 @@ local function take_damage(self,enemy_damage,enemy_type)
 		if self.armor > 0 then
 			gui.set(gui.get_node('enemy_damage'), 'position.y', pos_y + 300)
 			gui.set(gui.get_node('enemy_damage'), 'position.x', pos_x + 150)
-			gui.set(gui.get_node('screen_damage'), 'color.w', 0.6)
-			gui.animate(gui.get_node('screen_damage'), 'color.w', 0, gui.EASING_LINEAR, 0.3)
+			-- gui.set(gui.get_node('screen_damage'), 'color.w', 0.4)
+			-- gui.animate(gui.get_node('screen_damage'), 'color.w', 0, gui.EASING_LINEAR, 0.3)
 			gui.set_color(gui.get_node('enemy_damage'),vmath.vector4(1,0,0,0))
 			self.armor = self.armor - enemy_damage * 2
 			gui.set_text(gui.get_node('enemy_damage'), '-'..enemy_damage * 2)
@@ -289,8 +283,8 @@ local function take_damage(self,enemy_damage,enemy_type)
 		else
 			
 			gui.set_color(gui.get_node('enemy_damage'),vmath.vector4(1,0,0,0))
-			gui.set(gui.get_node('screen_damage'), 'color.w', 0.6)
-			gui.animate(gui.get_node('screen_damage'), 'color.w', 0, gui.EASING_LINEAR, 0.3)
+			-- gui.set(gui.get_node('screen_damage'), 'color.w', 0.4)
+			-- gui.animate(gui.get_node('screen_damage'), 'color.w', 0, gui.EASING_LINEAR, 0.3)
 			self.health = self.health - enemy_damage * 2
 			gui.set_text(gui.get_node('enemy_damage'), '-'..enemy_damage * 2)
 			gui.animate(gui.get_node('enemy_damage'), 'color.w', 0, gui.EASING_LINEAR, 1)
