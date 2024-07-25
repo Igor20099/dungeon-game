@@ -14,8 +14,10 @@ local function init_handler(self, err)
 
 		end
 	end)
+	yagames.features_loadingapi_ready()
 	msg.post('/ya#ya', "show_fullscreen_adv")
 	ya_scores.init_handler()
+
 
 end
 
