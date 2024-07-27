@@ -47,7 +47,7 @@ function init(self)
 	msg.post('#sword_straight', 'disable')
 	self.chest_items = {COINS,POTION,
 	STRAIGHT_SWORD,
-	GOLDEN_SWORD,
+	-- GOLDEN_SWORD,
 	BLOOD_SWORD,
 	HEALTH_SWORD,
 	ARMOR,
@@ -55,7 +55,7 @@ function init(self)
 	POISON_SWORD,
 	RUSTY_SWORD,
 	STAMINA_SWORD}
-	-- self.chest_items = {BLOOD_SWORD}
+	-- self.chest_items = {STAMINA_SWORD}
 	self.x,self.y = window.get_size()
 	gui.set(my_node, 'position.x', self.x + 500)
 	

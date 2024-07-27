@@ -49,7 +49,7 @@ embedded_instances {
   "  }\n"
   "  properties {\n"
   "    id: \"energy\"\n"
-  "    value: \"40.0\"\n"
+  "    value: \"50.0\"\n"
   "    type: PROPERTY_TYPE_NUMBER\n"
   "  }\n"
   "}\n"

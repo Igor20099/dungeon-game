@@ -1,42 +1,37 @@
 images {
   image: "/main/assets/sprites/items/coin.png"
-  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
   image: "/main/assets/sprites/items/heart.png"
-  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
   image: "/main/assets/sprites/items/potion.png"
-  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
   image: "/main/assets/sprites/chest/chest.png"
-  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
   image: "/main/assets/sprites/items/balck_rect.png"
-  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
   image: "/main/assets/sprites/items/blue_rect.png"
-  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
   image: "/main/assets/sprites/items/yellow_rect.png"
-  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
   image: "/main/assets/sprites/items/Weather-Storm-icon.png"
-  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
 images {
   image: "/main/assets/sprites/items/red_rect.png"
-  sprite_trim_mode: SPRITE_TRIM_MODE_OFF
 }
-margin: 0
+images {
+  image: "/main/assets/sprites/items/gallerybutton_idle_blank.png"
+}
+images {
+  image: "/main/assets/sprites/items/confirm.png"
+}
+images {
+  image: "/main/assets/sprites/items/ExampleSprite.png"
+}
 extrude_borders: 3
-inner_padding: 0
-max_page_width: 0
-max_page_height: 0
-rename_patterns: ""

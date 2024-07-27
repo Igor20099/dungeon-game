@@ -27,3 +27,16 @@ show_console_banner = 0
 default_texture_min_filter = nearest
 default_texture_mag_filter = nearest
 
+[sprite]
+max_count = 1024
+
+[gui]
+max_count = 1024
+max_particlefx_count = 1024
+
+[label]
+max_count = 2000
+
+[factory]
+max_count = 1024
+
