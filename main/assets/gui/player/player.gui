@@ -281,37 +281,37 @@ nodes {
 }
 nodes {
   position {
-    x: 39.0
+    x: 66.0
     y: 670.0
   }
-  scale {
-    x: 10.848958
-    y: 0.710053
-  }
-  color {
-    x: 0.0
-    y: 0.0
-    z: 0.0
+  size {
+    x: 300.0
+    y: 60.0
   }
   type: TYPE_BOX
-  texture: "items/balck_rect"
+  texture: "items/panel_Example1"
   id: "black_rect1"
   yanchor: YANCHOR_TOP
   pivot: PIVOT_W
   inherit_alpha: true
-  size_mode: SIZE_MODE_AUTO
+  slice9 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+    w: 1.0
+  }
 }
 nodes {
   position {
-    x: 39.0
+    x: 91.0
     y: 670.0
   }
   scale {
-    x: 0.1
-    y: 0.710053
+    x: 7.8
+    y: 0.926065
   }
   type: TYPE_BOX
-  texture: "items/blue_rect"
+  texture: "items/xp_bar"
   id: "blue_rect"
   yanchor: YANCHOR_TOP
   pivot: PIVOT_W
@@ -320,7 +320,7 @@ nodes {
 }
 nodes {
   position {
-    x: 163.0
+    x: 175.0
     y: 668.0
   }
   size {

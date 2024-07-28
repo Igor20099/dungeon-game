@@ -31,6 +31,7 @@ function init(self)
 	self.curent_enemies_of_level = self.enemies_in_levels
 	self.chest_hide = false
 	print('game_manager_init!!!')
+	msg.post('#volume', 'disable')
 
 end
 
@@ -40,7 +41,7 @@ function on_message(self, message_id, message, sender)
 
 	if message_id == hash('start_game_one') then
 
-		
+		msg.post('#volume', 'enable')
 		msg.post('/player#player', 'init_dungeon',{level_of_dungeon = self.level_of_dungeon,enemies_in_levels = self.enemies_in_levels})
 		create_random_enemy(self)
 	end

@@ -110,7 +110,7 @@ nodes {
 }
 nodes {
   position {
-    x: -54.0
+    x: -28.0
   }
   scale {
     x: 3.0
@@ -125,7 +125,7 @@ nodes {
 }
 nodes {
   position {
-    x: -2.0
+    x: 24.0
   }
   size {
     x: 200.0
@@ -151,65 +151,6 @@ nodes {
 }
 nodes {
   position {
-    x: 339.0
-    y: 454.0
-  }
-  scale {
-    x: 0.6
-    y: 0.6
-  }
-  size {
-    x: 200.0
-    y: 100.0
-  }
-  type: TYPE_BOX
-  texture: "items/gallerybutton_idle_blank"
-  id: "add_energy"
-  inherit_alpha: true
-}
-nodes {
-  position {
-    x: -54.0
-  }
-  scale {
-    x: 0.2
-    y: 0.2
-  }
-  type: TYPE_BOX
-  texture: "items/Weather-Storm-icon"
-  id: "box"
-  parent: "add_energy"
-  inherit_alpha: true
-  size_mode: SIZE_MODE_AUTO
-}
-nodes {
-  position {
-    x: -2.0
-  }
-  size {
-    x: 200.0
-    y: 100.0
-  }
-  type: TYPE_TEXT
-  text: "+10\n"
-  ""
-  font: "number"
-  id: "text2"
-  outline {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-  shadow {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-  parent: "add_energy"
-  inherit_alpha: true
-}
-nodes {
-  position {
     x: 213.0
     y: 454.0
   }
@@ -228,7 +169,7 @@ nodes {
 }
 nodes {
   position {
-    x: -54.0
+    x: -28.0
   }
   scale {
     x: 0.1
@@ -243,8 +184,8 @@ nodes {
 }
 nodes {
   position {
-    x: -2.0
-    y: -11.666666
+    x: 11.0
+    y: -14.999998
   }
   size {
     x: 200.0
@@ -267,6 +208,65 @@ nodes {
     z: 1.0
   }
   parent: "add_damage"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 339.0
+    y: 454.0
+  }
+  scale {
+    x: 0.6
+    y: 0.6
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_BOX
+  texture: "items/gallerybutton_idle_blank"
+  id: "add_energy"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: -28.0
+  }
+  scale {
+    x: 0.2
+    y: 0.2
+  }
+  type: TYPE_BOX
+  texture: "items/Weather-Storm-icon"
+  id: "box"
+  parent: "add_energy"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: 11.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  text: "+10\n"
+  ""
+  font: "number"
+  id: "text2"
+  outline {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  shadow {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+  parent: "add_energy"
   inherit_alpha: true
 }
 material: "/builtins/materials/gui.material"

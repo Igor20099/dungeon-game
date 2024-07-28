@@ -34,4 +34,10 @@ images {
 images {
   image: "/main/assets/sprites/items/ExampleSprite.png"
 }
+images {
+  image: "/main/assets/sprites/items/panel_Example1.png"
+}
+images {
+  image: "/main/assets/sprites/items/xp_bar.png"
+}
 extrude_borders: 3

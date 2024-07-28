@@ -40,3 +40,6 @@ max_count = 2000
 [factory]
 max_count = 1024
 
+[sound]
+gain = 0.8
+

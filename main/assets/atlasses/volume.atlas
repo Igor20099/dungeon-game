@@ -1,0 +1,7 @@
+images {
+  image: "/main/assets/sprites/volume/volume_off.png"
+}
+images {
+  image: "/main/assets/sprites/volume/volume_on.png"
+}
+extrude_borders: 2

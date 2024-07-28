@@ -9,17 +9,12 @@ textures {
 }
 nodes {
   position {
-    x: 216.0
-    y: 443.0
-  }
-  scale {
-    x: 0.191924
-    y: 0.3
-    z: 1.56
+    x: 211.0
+    y: 469.0
   }
   size {
-    x: 2100.0
-    y: 1200.0
+    x: 350.0
+    y: 300.0
   }
   type: TYPE_BOX
   texture: "items/ExampleSprite"
@@ -75,7 +70,8 @@ nodes {
     y: 100.0
   }
   type: TYPE_TEXT
-  text: "\320\234\320\276\320\275\320\265\321\202\321\213: 99999999\n"
+  text: "\320\234\320\276\320\275\320\265\321\202\321\213: 0\n"
+  "\n"
   ""
   font: "number"
   id: "coins"
@@ -102,7 +98,7 @@ nodes {
     y: 100.0
   }
   type: TYPE_TEXT
-  text: "\320\240\320\265\320\272\320\276\321\200\320\264: 99999999"
+  text: "\320\240\320\265\320\272\320\276\321\200\320\264: 0"
   font: "number"
   id: "record"
   pivot: PIVOT_W

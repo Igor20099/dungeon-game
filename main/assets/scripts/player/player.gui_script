@@ -125,7 +125,7 @@ local function take_damage(self,enemy_damage,enemy_type)
 	if damage_type == 'miss' then
 		if self.armor > 0 then
 			gui.set_text(gui.get_node('enemy_damage'),'Промах')
-			gui.set(gui.get_node('enemy_damage'), 'position.x', pos_x + 150)
+			gui.set(gui.get_node('enemy_damage'), 'position.x', pos_x + 160)
 			gui.set(gui.get_node('enemy_damage'), 'position.y', pos_y + 300)
 			gui.set_color(gui.get_node('enemy_damage'),vmath.vector4(1,1,1,0))
 			gui.animate(gui.get_node('enemy_damage'), 'color.w', 0, gui.EASING_LINEAR, 1)
@@ -146,7 +146,7 @@ local function take_damage(self,enemy_damage,enemy_type)
 	elseif damage_type == 'damage' then
 		if self.armor > 0 then
 			gui.set(gui.get_node('enemy_damage'), 'position.y', pos_y + 300)
-			gui.set(gui.get_node('enemy_damage'), 'position.x', pos_x + 150)
+			gui.set(gui.get_node('enemy_damage'), 'position.x', pos_x + 190)
 			-- gui.set(gui.get_node('screen_damage'), 'color.w', 0.4)
 			-- gui.animate(gui.get_node('screen_damage'), 'color.w', 0, gui.EASING_LINEAR, 0.3)
 			gui.set_color(gui.get_node('enemy_damage'),vmath.vector4(1,1,1,0))
@@ -168,6 +168,7 @@ local function take_damage(self,enemy_damage,enemy_type)
 				gui.set_scale(gui.get_node('heart'), vmath.vector3(3,3,1))
 				gui.set_scale(gui.get_node('health_count'), vmath.vector3(0.3,0.3,1))
 				gui.set_scale(gui.get_node('enemy_damage'), vmath.vector3(0.3,0.3,1))
+			
 				gui.set_text(gui.get_node('health_count'), self.health..'/'..self.max_health)
 			end
 		else
@@ -203,7 +204,7 @@ local function take_damage(self,enemy_damage,enemy_type)
 			local rand_poison = math.random(1,2)
 			if self.armor > 0  then
 				if rand_poison == 1 then
-					damage_message = gui.new_text_node(vmath.vector3(120,760,1),-5)
+					damage_message = gui.new_text_node(vmath.vector3(100,760,1),-5)
 					gui.set(damage_message, gui.PROP_COLOR, vmath.vector4(0,1,0,1))
 					gui.animate(damage_message, 'color.w', 0, gui.EASING_LINEAR,0.8)
 					-- gui.animate(damage_message, 'position.y', 765, gui.EASING_LINEAR, 0.4)
@@ -246,7 +247,7 @@ local function take_damage(self,enemy_damage,enemy_type)
 	elseif damage_type == 'crit_damage' then
 		if self.armor > 0 then
 			gui.set(gui.get_node('enemy_damage'), 'position.y', pos_y + 300)
-			gui.set(gui.get_node('enemy_damage'), 'position.x', pos_x + 150)
+			gui.set(gui.get_node('enemy_damage'), 'position.x', pos_x + 190)
 			-- gui.set(gui.get_node('screen_damage'), 'color.w', 0.4)
 			-- gui.animate(gui.get_node('screen_damage'), 'color.w', 0, gui.EASING_LINEAR, 0.3)
 			gui.set_color(gui.get_node('enemy_damage'),vmath.vector4(1,0,0,0))
@@ -267,6 +268,7 @@ local function take_damage(self,enemy_damage,enemy_type)
 				gui.set_scale(gui.get_node('heart'), vmath.vector3(3,3,1))
 				gui.set_scale(gui.get_node('health_count'), vmath.vector3(0.3,0.3,1))
 				gui.set_scale(gui.get_node('enemy_damage'), vmath.vector3(0.3,0.3,1))
+			
 				gui.set_text(gui.get_node('health_count'), self.health..'/'..self.max_health)
 			end
 		else
@@ -302,7 +304,7 @@ local function take_damage(self,enemy_damage,enemy_type)
 			local rand_poison = math.random(1,2)
 			if self.armor > 0  then
 				if rand_poison == 1 then
-					damage_message = gui.new_text_node(vmath.vector3(124,760,1),-5)
+					damage_message = gui.new_text_node(vmath.vector3(120,760,1),-5)
 					gui.set(damage_message, gui.PROP_COLOR, vmath.vector4(0,1,0,1))
 					gui.animate(damage_message, 'color.w', 0, gui.EASING_LINEAR,0.8)
 					-- gui.animate(damage_message, 'position.y', 765, gui.EASING_LINEAR, 0.4)
@@ -342,6 +344,8 @@ local function take_damage(self,enemy_damage,enemy_type)
 		gui.set_text(gui.get_node('health_count'), self.health..'/'..self.max_health)
 		msg.post('/game_manager#game_manager', 'end_game')
 		msg.post('/game_manager#end_game', 'all_coins',{coins = self.coins})
+		msg.post('.', 'disable')
+		msg.post('#level_up', 'disable')
 	end
 	
 end
@@ -379,7 +383,7 @@ function init(self)
 	self.enemies_of_level = 0
 	self.current_enemies_of_level = 0
 	self.damage_types = {'miss','damage','crit_damage'}
-	max_exp_scale = gui.get(gui.get_node('black_rect1'), 'scale.x')
+	max_exp_scale = 7.8
 	set_exp_scale()
 	if self.enemy ~= nil then
 		timer.delay(0.2, false, function() msg.post(self.enemy, 'player_damage', {player_damage = self.damage})end)
@@ -574,6 +578,9 @@ function on_message(self, message_id, message, sender)
 			self.health = 0
 			gui.set_text(gui.get_node('health_count'), self.health..'/'..self.max_health)
 			msg.post('/game_manager#game_manager', 'end_game')
+			msg.post('/game_manager#end_game', 'all_coins',{coins = self.coins})
+			msg.post('.', 'disable')
+			msg.post('#level_up', 'disable')
 		end
 		gui.set_text(gui.get_node('health_count'), self.health..'/'..self.max_health)
 	end

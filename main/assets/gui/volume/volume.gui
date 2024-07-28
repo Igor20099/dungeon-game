@@ -1,0 +1,22 @@
+script: "/main/assets/scripts/volume/volume.gui_script"
+textures {
+  name: "volume"
+  texture: "/main/assets/atlasses/volume.atlas"
+}
+nodes {
+  position {
+    x: 374.0
+    y: 54.0
+    z: 1.0
+  }
+  scale {
+    x: 0.1
+    y: 0.1
+  }
+  type: TYPE_BOX
+  texture: "volume/volume_on"
+  id: "volume"
+  size_mode: SIZE_MODE_AUTO
+}
+material: "/builtins/materials/gui.material"
+adjust_reference: ADJUST_REFERENCE_PARENT

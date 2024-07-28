@@ -28,7 +28,7 @@ function on_input(self, action_id, action)
 		msg.post('/player#player', 'enable')
 		msg.post('/game_manager#game_manager', 'start_game_one')
 
-
+		sound.play('#sound')
 	end
 end
 

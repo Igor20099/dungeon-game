@@ -10,8 +10,11 @@ function init(self)
 end
 
 function on_message(self, message_id, message, sender)
+
 	if message_id == hash('all_coins') then
+
 		local best_record = defsave.get('coins', 'record') or 0
+
 		if message.coins > best_record then
 			best_record = message.coins
 			defsave.set('coins','record',message.coins)
