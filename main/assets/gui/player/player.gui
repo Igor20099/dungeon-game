@@ -303,11 +303,37 @@ nodes {
 }
 nodes {
   position {
+    x: 92.0
+    y: 669.0
+  }
+  scale {
+    x: 1.252462
+    y: 0.297648
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_BOX
+  blend_mode: BLEND_MODE_MULT
+  id: "box"
+  pivot: PIVOT_W
+  inherit_alpha: true
+  alpha: 0.2
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
     x: 91.0
     y: 670.0
   }
   scale {
-    x: 7.8
+    x: 1.0E-6
     y: 0.926065
   }
   type: TYPE_BOX
