@@ -19,7 +19,10 @@ local function add_coins(self,coins)
 	local rand_y = math.random(380,400)
 	coins_message = gui.new_text_node(vmath.vector3(100,rand_y,1), '+'..coins)
 	coins_image = gui.new_box_node(vmath.vector3(150,rand_y + 2,1), vmath.vector3(30,30,1))
+
+	
 	table.insert(self.coins_heap, {coins_message = coins_message, coins_image = coins_image})
+	-- print('size'..#self.coins_heap)
 	gui.set_texture(coins_image, 'items')
 	gui.play_flipbook(coins_image, "coin")
 	gui.animate(coins_message, 'color.w', 0, gui.EASING_LINEAR, 0.8)
@@ -341,6 +344,13 @@ local function take_damage(self,enemy_damage,enemy_type)
 	
 	if self.health <= 0 then
 		self.health = 0
+-- 		if self.enemy then
+-- 			msg.post(self.enemy, 'disable')
+-- 		end
+-- 		if self.chest then
+-- 			msg.post(self.chest, 'disable')
+-- 		end
+
 		gui.set_text(gui.get_node('health_count'), self.health..'/'..self.max_health)
 		msg.post('/game_manager#game_manager', 'end_game')
 		msg.post('/game_manager#end_game', 'all_coins',{coins = self.coins})
@@ -411,10 +421,14 @@ function on_message(self, message_id, message, sender)
 
 	if message_id == hash('chest') then
 		self.chest = message.chest
-		-- for i, obj in ipairs(self.coins_heap) do
-		-- 	gui.delete_node(obj.coins_message)
-		-- 	gui.delete_node(obj.coins_image)
-		-- end
+		for i, obj in ipairs(self.coins_heap) do
+			print(obj.coins_message)
+			gui.delete_node(obj.coins_message)
+			gui.delete_node(obj.coins_image)
+		end
+
+			self.coins_heap = {}
+		
 	end
 
 	if message_id == hash('is_buff') then
