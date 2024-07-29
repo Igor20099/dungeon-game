@@ -421,13 +421,13 @@ function on_message(self, message_id, message, sender)
 
 	if message_id == hash('chest') then
 		self.chest = message.chest
-		for i, obj in ipairs(self.coins_heap) do
+		timer.delay(0.8, false, function() for i, obj in ipairs(self.coins_heap) do
 			print(obj.coins_message)
 			gui.delete_node(obj.coins_message)
 			gui.delete_node(obj.coins_image)
 		end
 
-			self.coins_heap = {}
+		self.coins_heap = {} end )
 		
 	end
 
