@@ -6,18 +6,20 @@ local ya_scores = require("main.assets.scripts.yandex.ya_leaderboards")
 local function init_handler(self, err)
 	if err then
 		print("Something went wrong:", err)
+	else
+		yagames.player_init(options, function(self, err)
+			print("yagames.player_init:", err or "OK!")
+
+			if not err then
+
+			end
+		end)
+		yagames.features_loadingapi_ready()
+		msg.post('/ya#ya', "show_fullscreen_adv")
+		ya_scores.init_handler()
+		
 	end
-	yagames.player_init(options, function(self, err)
-		print("yagames.player_init:", err or "OK!")
-
-		if not err then
-
-		end
-	end)
-	yagames.features_loadingapi_ready()
-	msg.post('/ya#ya', "show_fullscreen_adv")
-	ya_scores.init_handler()
-
+	
 
 end
 
