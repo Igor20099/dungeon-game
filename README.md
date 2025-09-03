@@ -1,13 +1,5 @@
-# Welcome to Defold
+# Игра Гулбины Подземелья
 
-This project was created from the "empty" project template.
+Игра кликер в которой вам по очередно нужно кликать на врагов тем самым отнимая им здоровье.Они так же атакуют вас. Как только на уровне вы зачистите всех существ в конце вас будет ждать сундук с случайной наградой. В игре так же реализована прокачка уровня, где вы можете увеличить урон,здоровье или энергию. За победу над врагами вам будут начисляться золото. Саундтрек к игре я написал на **FL Studio mobile**. Игра сделана на движке **Defold**
 
-The settings in ["game.project"](defold://open?path=/game.project) are all the default. A bootstrap empty ["main.collection"](defold://open?path=/main/main.collection) is included.
-
-Check out [the documentation pages](https://defold.com/learn) for examples, tutorials, manuals and API docs.
-
-If you run into trouble, help is available in [our forum](https://forum.defold.com).
-
-Happy Defolding!
-
----
+Поиграть можно здесь [joymaker123.itch.io/depthsdungeon](https://joymaker123.itch.io/depthsdungeon)
